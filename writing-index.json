@@ -1,0 +1,14 @@
+[
+  {
+    "slug": "hello-world",
+    "title": "Hello world. This is where I write about what I actually do.",
+    "date": "2026-03-18",
+    "tags": [
+      "Meta",
+      "Copilot Studio"
+    ],
+    "excerpt": "First post. What this site is, why I built it, and what I plan to write about.",
+    "readtime": 1,
+    "youtube_id": null
+  }
+]

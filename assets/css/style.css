@@ -1,0 +1,467 @@
+/* =====================================================================
+   stuarttufft.com — style.css
+   Brand tokens + Bootstrap overrides only.
+   Bootstrap handles: grid, nav, cards, badges, forms, buttons, utilities.
+   ===================================================================== */
+
+/* ── CSS Custom Properties ─────────────────────────────────────────── */
+:root {
+  --st-bg:           #F7F5F0;
+  --st-surface:      #FDFCF9;
+  --st-surface-alt:  #F2F0EB;
+  --st-text:         #1A1A17;
+  --st-text-mid:     #5A5A52;
+  --st-text-light:   #8C8B82;
+  --st-accent:       #A8E63D;
+  --st-accent-dark:  #7CB82C;
+  --st-accent-tint:  rgba(168, 230, 61, 0.12);
+  --st-border:       #E6E4DB;
+
+  /* Bootstrap font overrides */
+  --bs-body-font-family: 'Inter', 'Helvetica Neue', sans-serif;
+  --bs-body-font-weight: 300;
+  --bs-font-sans-serif:  'Roboto', 'Helvetica Neue', sans-serif;
+  --bs-body-bg:          var(--st-bg);
+  --bs-body-color:       var(--st-text);
+  --bs-border-color:     var(--st-border);
+}
+
+[data-bs-theme="dark"] {
+  --st-bg:           #1E1D19;
+  --st-surface:      #28271F;
+  --st-surface-alt:  #232219;
+  --st-text:         #F0EDE6;
+  --st-text-mid:     #AEADA4;
+  --st-text-light:   #6A6960;
+  --st-accent:       #A8E63D;
+  --st-accent-dark:  #C2EF6A;
+  --st-accent-tint:  rgba(168, 230, 61, 0.15);
+  --st-border:       #353429;
+
+  --bs-body-bg:    var(--st-bg);
+  --bs-body-color: var(--st-text);
+  --bs-border-color: var(--st-border);
+}
+
+/* ── Base ───────────────────────────────────────────────────────────── */
+body {
+  background-color: var(--st-bg);
+  color: var(--st-text);
+}
+
+h1, h2, h3, h4, h5, h6,
+.h1, .h2, .h3, .h4, .h5, .h6 {
+  font-family: 'Roboto', 'Helvetica Neue', sans-serif;
+}
+
+/* ── Nav Logo Dot ───────────────────────────────────────────────────── */
+.nav-logo-dot {
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background-color: var(--st-accent);
+  flex-shrink: 0;
+}
+
+/* ── Nav scroll state ───────────────────────────────────────────────── */
+#mainNav {
+  background-color: var(--st-bg);
+  border-bottom: 1px solid transparent;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+#mainNav.scrolled {
+  border-bottom-color: var(--st-border);
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+}
+
+[data-bs-theme="dark"] #mainNav {
+  background-color: var(--st-bg);
+}
+
+/* ── Accent Button ──────────────────────────────────────────────────── */
+.btn-accent {
+  background-color: var(--st-accent);
+  color: var(--st-text);
+  border: none;
+  font-weight: 500;
+  transition: background-color 0.18s, transform 0.15s;
+}
+
+.btn-accent:hover,
+.btn-accent:focus {
+  background-color: var(--st-accent-dark);
+  color: var(--st-text);
+  transform: translateY(-1px);
+}
+
+[data-bs-theme="dark"] .btn-accent {
+  color: #1A1A17;
+}
+
+/* ── Section Eyebrow ────────────────────────────────────────────────── */
+.section-eyebrow {
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--st-text-light);
+}
+
+/* ── em in headings (accent highlight) ─────────────────────────────── */
+h1 em, h2 em, h3 em,
+.h1 em, .h2 em, .h3 em, .display-4 em, .display-5 em {
+  font-style: normal;
+  color: var(--st-accent-dark);
+}
+
+[data-bs-theme="dark"] h1 em,
+[data-bs-theme="dark"] h2 em,
+[data-bs-theme="dark"] h3 em,
+[data-bs-theme="dark"] .display-4 em,
+[data-bs-theme="dark"] .display-5 em {
+  color: var(--st-accent-dark);
+}
+
+/* ── Scroll Reveal ──────────────────────────────────────────────────── */
+.reveal {
+  opacity: 0;
+  transform: translateY(18px);
+  transition: opacity 0.65s ease, transform 0.65s ease;
+}
+
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.reveal.d1 { transition-delay: 80ms; }
+.reveal.d2 { transition-delay: 160ms; }
+.reveal.d3 { transition-delay: 240ms; }
+
+/* ── Cert Cards ─────────────────────────────────────────────────────── */
+.cert-card {
+  background-color: var(--st-surface);
+  border: 1px solid var(--st-border);
+  border-radius: 10px;
+  padding: 1rem 1.1rem;
+  transition: box-shadow 0.18s;
+}
+
+.cert-card:hover {
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+}
+
+/* Custom cert top border colours */
+.cert-security    { border-top: 3px solid #9B59B6; }
+.cert-m365        { border-top: 3px solid #3498DB; }
+.cert-azure       { border-top: 3px solid #00BCD4; }
+.cert-power       { border-top: 3px solid #5C6BC0; }
+.cert-ai          { border-top: 3px solid #26A69A; }
+
+/* ── Post Cards ─────────────────────────────────────────────────────── */
+.post-card {
+  background-color: var(--st-surface);
+  border: 1px solid var(--st-border) !important;
+  border-radius: 10px;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.post-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+}
+
+[data-bs-theme="dark"] .post-card {
+  background-color: var(--st-surface);
+}
+
+/* ── Video Wrap (16:9) ──────────────────────────────────────────────── */
+.video-wrap {
+  position: relative;
+  padding-bottom: 56.25%;
+  height: 0;
+  overflow: hidden;
+  border-radius: 10px;
+  margin-bottom: 2rem;
+}
+
+.video-wrap iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+
+/* ── Reading Column ─────────────────────────────────────────────────── */
+.reading-col {
+  max-width: 680px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* ── Newsletter Card ────────────────────────────────────────────────── */
+.newsletter-card {
+  background-color: var(--st-text);
+  color: var(--st-bg);
+  border-radius: 16px;
+  padding: 2.5rem;
+}
+
+.newsletter-card .section-eyebrow {
+  color: var(--st-text-light);
+}
+
+.newsletter-card p {
+  color: var(--st-text-mid);
+}
+
+/* Prevent double-invert in dark mode */
+[data-bs-theme="dark"] .newsletter-card {
+  background-color: var(--st-surface-alt);
+  color: var(--st-text);
+}
+
+[data-bs-theme="dark"] .newsletter-card p {
+  color: var(--st-text-mid);
+}
+
+/* ── Stat Cards ─────────────────────────────────────────────────────── */
+.stat-card {
+  background-color: var(--st-surface);
+  border: 1px solid var(--st-border);
+  border-radius: 12px;
+  padding: 1.5rem;
+}
+
+.stat-card .stat-value {
+  font-family: 'Roboto', sans-serif;
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--st-text);
+  line-height: 1;
+  margin-bottom: 0.4rem;
+}
+
+.stat-card .stat-label {
+  font-size: 0.85rem;
+  color: var(--st-text-mid);
+  line-height: 1.4;
+}
+
+/* ── Headshot ───────────────────────────────────────────────────────── */
+.headshot {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 3px solid var(--st-border);
+}
+
+/* ── Search Input ───────────────────────────────────────────────────── */
+.search-wrap {
+  position: relative;
+}
+
+.search-wrap .bi-search {
+  position: absolute;
+  left: 0.9rem;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--st-text-light);
+  pointer-events: none;
+}
+
+.search-wrap .form-control {
+  padding-left: 2.4rem;
+}
+
+/* ── Project Cards ──────────────────────────────────────────────────── */
+.project-card {
+  background-color: var(--st-surface);
+  border: 1px solid var(--st-border);
+  border-radius: 12px;
+  padding: 1.5rem;
+  height: 100%;
+  transition: box-shadow 0.2s, transform 0.2s;
+}
+
+.project-card:hover {
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+  transform: translateY(-3px);
+}
+
+/* ── Home: hero photo ───────────────────────────────────────────────── */
+.hero-img-wrap {
+  position: relative;
+  display: inline-block;
+  width: 100%;
+  max-width: 380px;
+}
+
+.hero-img-wrap img {
+  border-radius: 16px;
+  width: 100%;
+  display: block;
+  position: relative;
+  z-index: 1;
+  object-fit: cover;
+}
+
+.hero-img-accent {
+  position: absolute;
+  inset: 16px -16px -16px 16px;
+  border-radius: 16px;
+  background: var(--st-accent-tint);
+  border: 2px solid var(--st-accent);
+  z-index: 0;
+}
+
+/* ── Home: section alt background ───────────────────────────────────── */
+.section-alt {
+  background-color: var(--st-surface-alt);
+}
+
+/* ── Home: Watch / YouTube section ─────────────────────────────────── */
+.section-watch {
+  background-color: var(--st-text);
+  color: var(--st-bg);
+}
+
+.section-watch h2 {
+  color: var(--st-bg);
+}
+
+.section-watch p,
+.section-watch .text-muted-watch {
+  color: var(--st-text-mid);
+}
+
+.section-watch .section-eyebrow {
+  color: var(--st-accent);
+}
+
+[data-bs-theme="dark"] .section-watch {
+  background-color: var(--st-surface-alt);
+  border-top: 1px solid var(--st-border);
+}
+
+[data-bs-theme="dark"] .section-watch h2 {
+  color: var(--st-text);
+}
+
+/* ── YouTube placeholder card ───────────────────────────────────────── */
+.yt-placeholder {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  aspect-ratio: 16 / 9;
+  border-radius: 12px;
+  background-color: rgba(0, 0, 0, 0.5);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  text-decoration: none;
+  transition: background-color 0.2s;
+  overflow: hidden;
+}
+
+.yt-placeholder:hover {
+  background-color: rgba(0, 0, 0, 0.65);
+}
+
+.yt-play-btn {
+  width: 64px;
+  height: 64px;
+  background-color: #FF0000;
+  border-radius: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 1rem;
+  flex-shrink: 0;
+  transition: transform 0.15s, background-color 0.15s;
+}
+
+.yt-placeholder:hover .yt-play-btn {
+  transform: scale(1.08);
+  background-color: #cc0000;
+}
+
+/* ── Scroll-down indicator ───────────────────────────────────────────── */
+.scroll-hint {
+  position: absolute;
+  bottom: 2rem;
+  left: 50%;
+  transform: translateX(-50%);
+  color: var(--st-text-light);
+  animation: bounce 2s ease-in-out infinite;
+  pointer-events: none;
+}
+
+@keyframes bounce {
+  0%, 100% { transform: translateX(-50%) translateY(0); }
+  50%       { transform: translateX(-50%) translateY(6px); }
+}
+
+/* ── Post article typography ────────────────────────────────────────── */
+.post-body h2 {
+  font-size: 1.4rem;
+  font-weight: 700;
+  margin-top: 2.5rem;
+  margin-bottom: 1rem;
+}
+
+.post-body h3 {
+  font-size: 1.15rem;
+  font-weight: 700;
+  margin-top: 2rem;
+  margin-bottom: 0.75rem;
+}
+
+.post-body p {
+  margin-bottom: 1.2rem;
+  line-height: 1.75;
+}
+
+.post-body ul,
+.post-body ol {
+  margin-bottom: 1.2rem;
+  padding-left: 1.5rem;
+}
+
+.post-body li {
+  margin-bottom: 0.4rem;
+  line-height: 1.7;
+}
+
+.post-body code {
+  background-color: var(--st-surface-alt);
+  border-radius: 4px;
+  padding: 0.15em 0.4em;
+  font-size: 0.9em;
+}
+
+.post-body pre {
+  background-color: var(--st-surface-alt);
+  border: 1px solid var(--st-border);
+  border-radius: 8px;
+  padding: 1.2rem;
+  overflow-x: auto;
+  margin-bottom: 1.5rem;
+}
+
+.post-body blockquote {
+  border-left: 3px solid var(--st-accent);
+  padding-left: 1.2rem;
+  margin: 1.5rem 0;
+  color: var(--st-text-mid);
+}
+
+/* ── Theme toggle icon visibility ───────────────────────────────────── */
+[data-bs-theme="light"] .icon-sun { display: none !important; }
+[data-bs-theme="light"] .icon-moon { display: inline !important; }
+[data-bs-theme="dark"]  .icon-sun { display: inline !important; }
+[data-bs-theme="dark"]  .icon-moon { display: none !important; }

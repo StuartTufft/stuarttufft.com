@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Stuart Tufft — No nonsense AI.</title>
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="Stuart Tufft — No nonsense AI." />
+  <meta property="og:description" content="Copilot Studio and agentic AI consultant. Learning in public." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://stuarttufft.com/" />
+  <meta property="og:image" content="https://stuarttufft.com/assets/img/og-default.jpg" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <!-- TODO: replace og-default.jpg with a real 1200x630 OG image -->
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&family=Inter:wght@300;400;500&display=swap" rel="stylesheet" />
+
+  <!-- Bootstrap 5.3.8 CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous" />
+
+  <!-- Bootstrap Icons 1.11.3 -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
+
+  <!-- Site styles -->
+  <link rel="stylesheet" href="assets/css/style.css" />
+</head>
+<body>
+
+  <!-- Nav -->
+  <nav class="navbar navbar-expand-lg sticky-top" id="mainNav">
+    <div class="container">
+      <a class="navbar-brand d-flex align-items-center gap-2" href="index.html">
+        Stuart Tufft<span class="nav-logo-dot"></span>
+      </a>
+      <button class="navbar-toggler border-0" type="button"
+        data-bs-toggle="collapse" data-bs-target="#navMenu"
+        aria-controls="navMenu" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navMenu">
+        <ul class="navbar-nav ms-auto align-items-lg-center gap-lg-1">
+          <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+          <li class="nav-item"><a class="nav-link" href="about.html">About</a></li>
+          <li class="nav-item"><a class="nav-link" href="writing.html">Writing</a></li>
+          <li class="nav-item"><a class="nav-link" href="projects.html">Projects</a></li>
+          <li class="nav-item">
+            <a class="nav-link" href="https://www.youtube.com/@StuartTufft"
+              target="_blank" rel="noopener">
+              Watch <i class="bi bi-box-arrow-up-right small"></i>
+            </a>
+          </li>
+          <li class="nav-item ms-lg-2">
+            <a class="nav-link btn btn-accent px-3 py-1 rounded-pill"
+              href="writing.html#newsletter">Follow</a>
+          </li>
+          <li class="nav-item ms-1">
+            <button class="btn btn-sm border rounded" id="themeToggle"
+              aria-label="Toggle dark mode">
+              <i class="bi bi-sun-fill icon-sun d-none"></i>
+              <i class="bi bi-moon-fill icon-moon"></i>
+            </button>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ── Hero ─────────────────────────────────────────────────────── -->
+  <section class="py-5 py-lg-6 min-vh-100 d-flex align-items-center position-relative">
+    <div class="container">
+      <div class="row align-items-center g-5">
+
+        <!-- Text -->
+        <div class="col-lg-6">
+          <p class="section-eyebrow mb-4 reveal">
+            Copilot Studio &nbsp;·&nbsp; Agentic AI &nbsp;·&nbsp;
+            Bytes Software Services &nbsp;·&nbsp; United Kingdom
+          </p>
+          <h1 class="display-4 fw-light lh-sm mb-4 reveal d1">
+            The tech is easy to sell.<br />
+            Making it <em>stick for people</em> isn't.
+          </h1>
+          <p class="lead fw-light text-body-secondary mb-5 reveal d2">
+            I design and deploy AI agents and help organisations embrace Copilot
+            sustainably — from C-suite strategy to hands-on delivery.
+            No shortcuts. No hype.
+          </p>
+          <div class="d-flex align-items-center gap-3 flex-wrap reveal d3">
+            <a href="writing.html" class="btn btn-accent rounded-pill px-4 py-2">
+              Read the writing <i class="bi bi-arrow-right ms-1"></i>
+            </a>
+            <a href="about.html" class="btn btn-link text-body-secondary px-0">
+              About Stuart <i class="bi bi-arrow-right ms-1"></i>
+            </a>
+          </div>
+          <div class="d-flex align-items-center gap-2 mt-5 reveal d3">
+            <small class="text-body-secondary me-1">Find me on</small>
+            <a href="https://www.linkedin.com/in/stuarttufft/"
+              target="_blank" rel="noopener"
+              class="btn btn-sm btn-outline-secondary rounded" aria-label="LinkedIn">
+              <i class="bi bi-linkedin"></i>
+            </a>
+            <a href="https://www.youtube.com/@StuartTufft"
+              target="_blank" rel="noopener"
+              class="btn btn-sm btn-outline-secondary rounded" aria-label="YouTube">
+              <i class="bi bi-youtube"></i>
+            </a>
+          </div>
+        </div>
+
+        <!-- Headshot -->
+        <div class="col-lg-5 offset-lg-1 d-none d-lg-flex justify-content-center reveal d2">
+          <div class="hero-img-wrap">
+            <img src="assets/img/stuart.jpg" alt="Stuart Tufft" />
+            <div class="hero-img-accent"></div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Scroll hint -->
+    <div class="scroll-hint d-none d-md-block" aria-hidden="true">
+      <i class="bi bi-chevron-down fs-5"></i>
+    </div>
+  </section>
+
+  <!-- ── Latest Writing ────────────────────────────────────────────── -->
+  <section class="py-5 py-lg-6 section-alt">
+    <div class="container">
+      <div class="d-flex justify-content-between align-items-end mb-4">
+        <div>
+          <p class="section-eyebrow mb-1 reveal">From the field</p>
+          <h2 class="h3 mb-0 reveal d1">Latest writing</h2>
+        </div>
+        <a href="writing.html" class="text-body-secondary text-decoration-none small reveal d1">
+          See all <i class="bi bi-arrow-right ms-1"></i>
+        </a>
+      </div>
+
+      <div class="row g-3" id="home-post-list">
+        <!-- Injected by JS — static fallback below is shown if JS fails -->
+        <noscript>
+          <div class="col-md-4">
+            <article class="post-card card border-0 h-100">
+              <div class="card-body p-4">
+                <div class="mb-2">
+                  <span class="badge rounded-pill bg-secondary me-1">Meta</span>
+                  <span class="badge rounded-pill bg-secondary me-1">Copilot Studio</span>
+                </div>
+                <h3 class="h6 mb-2">
+                  <a href="writing/hello-world.html" class="text-body text-decoration-none stretched-link">
+                    Hello world. This is where I write about what I actually do.
+                  </a>
+                </h3>
+                <p class="text-body-secondary small mb-0">First post. What this site is, why I built it, and what I plan to write about.</p>
+              </div>
+            </article>
+          </div>
+        </noscript>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Watch ─────────────────────────────────────────────────────── -->
+  <section class="py-5 py-lg-6 section-watch">
+    <div class="container">
+      <div class="row align-items-center g-5">
+
+        <!-- Text -->
+        <div class="col-lg-5">
+          <p class="section-eyebrow mb-3 reveal">YouTube</p>
+          <h2 class="h2 fw-light mb-3 reveal d1">Watch the work.</h2>
+          <p class="reveal d2" style="color:var(--st-text-mid);">
+            Copilot Studio walkthroughs, agent build demos, and real-world delivery
+            breakdowns. No sales deck. No fluff. Just the work.
+          </p>
+          <a href="https://www.youtube.com/@StuartTufft"
+            target="_blank" rel="noopener"
+            class="btn btn-accent rounded-pill px-4 mt-2 reveal d3">
+            Open the channel <i class="bi bi-youtube ms-1"></i>
+          </a>
+        </div>
+
+        <!-- Video embed -->
+        <div class="col-lg-6 offset-lg-1 reveal d2" id="yt-embed-wrap">
+          <!-- Injected by JS depending on FEATURED_VIDEO_ID -->
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Footer ────────────────────────────────────────────────────── -->
+  <footer class="pt-5 pb-4 mt-0 border-top">
+    <div class="container">
+      <!-- Newsletter -->
+      <div class="row mb-5" id="newsletter">
+        <div class="col-lg-8 mx-auto text-center">
+          <p class="section-eyebrow">Community</p>
+          <h2 class="h4 mb-2">No noise, just signal.</h2>
+          <p class="text-body-secondary mb-4">
+            Fortnightly thoughts on Copilot Studio, agentic AI, and real-world
+            delivery — from someone in the field, not the sidelines.
+          </p>
+          <form class="d-flex gap-2 justify-content-center flex-wrap"
+            onsubmit="return false;">
+            <!-- TODO: wire to newsletter provider (e.g. Beehiiv or ConvertKit) -->
+            <input type="email" class="form-control w-auto flex-grow-1"
+              placeholder="your@email.com" aria-label="Email address"
+              style="max-width:280px;" />
+            <button type="submit" class="btn btn-accent rounded-pill px-4">
+              Subscribe
+            </button>
+          </form>
+        </div>
+      </div>
+
+      <!-- Footer grid -->
+      <div class="row g-4 mb-4">
+        <div class="col-md-4">
+          <div class="fw-semibold mb-2">Stuart Tufft</div>
+          <p class="small text-body-secondary">
+            AI and Copilot consultant at Bytes Software Services.
+            Writing about what actually works.
+          </p>
+          <div class="d-flex gap-2 mt-3">
+            <a href="https://www.linkedin.com/in/stuarttufft/"
+              target="_blank" rel="noopener"
+              class="btn btn-sm btn-outline-secondary rounded"
+              aria-label="LinkedIn">
+              <i class="bi bi-linkedin"></i>
+            </a>
+            <a href="https://www.youtube.com/@StuartTufft"
+              target="_blank" rel="noopener"
+              class="btn btn-sm btn-outline-secondary rounded"
+              aria-label="YouTube">
+              <i class="bi bi-youtube"></i>
+            </a>
+            <a href="https://github.com/stuarttufft"
+              target="_blank" rel="noopener"
+              class="btn btn-sm btn-outline-secondary rounded"
+              aria-label="GitHub">
+              <i class="bi bi-github"></i>
+            </a>
+          </div>
+        </div>
+        <div class="col-6 col-md-2 offset-md-2">
+          <div class="section-eyebrow mb-3">Content</div>
+          <ul class="list-unstyled small">
+            <li class="mb-2"><a href="writing.html" class="text-body-secondary text-decoration-none">Writing</a></li>
+            <li class="mb-2"><a href="projects.html" class="text-body-secondary text-decoration-none">Projects</a></li>
+            <li class="mb-2">
+              <a href="https://www.youtube.com/@StuartTufft"
+                target="_blank" rel="noopener"
+                class="text-body-secondary text-decoration-none">Watch</a>
+            </li>
+          </ul>
+        </div>
+        <div class="col-6 col-md-2">
+          <div class="section-eyebrow mb-3">Credentials</div>
+          <ul class="list-unstyled small">
+            <li class="mb-2"><a href="about.html#certs" class="text-body-secondary text-decoration-none">Certifications</a></li>
+            <li class="mb-2">
+              <a href="https://learn.microsoft.com/en-gb/users/stuarttufft/"
+                target="_blank" rel="noopener"
+                class="text-body-secondary text-decoration-none">Microsoft Learn</a>
+            </li>
+          </ul>
+        </div>
+        <div class="col-6 col-md-2">
+          <div class="section-eyebrow mb-3">Connect</div>
+          <ul class="list-unstyled small">
+            <li class="mb-2">
+              <a href="https://www.linkedin.com/in/stuarttufft/"
+                target="_blank" rel="noopener"
+                class="text-body-secondary text-decoration-none">LinkedIn</a>
+            </li>
+            <li class="mb-2">
+              <a href="writing.html#newsletter"
+                class="text-body-secondary text-decoration-none">Newsletter</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="d-flex justify-content-between align-items-center
+        border-top pt-3 flex-wrap gap-2">
+        <small class="text-body-secondary">
+          &copy; 2026 Stuart Tufft<span class="nav-logo-dot mx-2"></span>All rights reserved.
+        </small>
+        <small class="text-body-secondary">stuarttufft.com</small>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Bootstrap JS bundle -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+  <!-- Site JS -->
+  <script src="assets/js/main.js"></script>
+
+  <script>
+    // ── TODO: Set FEATURED_VIDEO_ID to a real YouTube video ID (11 chars) ──
+    // Example: 'dQw4w9WgXcQ' — find it in the URL: youtube.com/watch?v=XXXXXXXXXXX
+    var FEATURED_VIDEO_ID = null;
+
+    // ── YouTube embed ─────────────────────────────────────────────────
+    var ytWrap = document.getElementById('yt-embed-wrap');
+
+    if (FEATURED_VIDEO_ID) {
+      ytWrap.innerHTML =
+        '<div class="video-wrap">' +
+          '<iframe src="https://www.youtube.com/embed/' + FEATURED_VIDEO_ID +
+            '?rel=0&modestbranding=1" ' +
+            'title="Stuart Tufft — YouTube" ' +
+            'allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" ' +
+            'allowfullscreen></iframe>' +
+        '</div>';
+    } else {
+      // Placeholder — links to the channel until a video ID is set
+      ytWrap.innerHTML =
+        '<a href="https://www.youtube.com/@StuartTufft" target="_blank" rel="noopener" ' +
+          'class="yt-placeholder" aria-label="Visit Stuart Tufft on YouTube">' +
+          '<div class="yt-play-btn">' +
+            '<i class="bi bi-play-fill text-white fs-3"></i>' +
+          '</div>' +
+          '<span class="text-white fw-semibold mb-1">@StuartTufft</span>' +
+          '<span class="small" style="color:rgba(255,255,255,0.55);">Watch on YouTube</span>' +
+        '</a>';
+    }
+
+    // ── Latest posts ──────────────────────────────────────────────────
+    function formatDate(d) {
+      if (!d) return '';
+      return new Date(d).toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' });
+    }
+
+    function renderHomePosts(posts) {
+      var list = document.getElementById('home-post-list');
+      var shown = posts.slice(0, 3);
+      list.innerHTML = shown.map(function (p) {
+        var tags = (p.tags || []).map(function (t) {
+          return '<span class="badge rounded-pill bg-secondary me-1">' + t + '</span>';
+        }).join('');
+        return (
+          '<div class="col-md-4">' +
+            '<article class="post-card card border-0 h-100 reveal">' +
+              '<div class="card-body p-4">' +
+                '<div class="d-flex justify-content-between align-items-start mb-3">' +
+                  '<div class="d-flex gap-1 flex-wrap">' + tags + '</div>' +
+                  '<small class="text-body-secondary text-nowrap ms-2">' + p.readtime + ' min</small>' +
+                '</div>' +
+                '<h3 class="h6 fw-semibold mb-2 lh-sm">' +
+                  '<a href="writing/' + p.slug + '.html" ' +
+                     'class="text-body text-decoration-none stretched-link">' + p.title + '</a>' +
+                '</h3>' +
+                '<p class="text-body-secondary small mb-0">' + p.excerpt + '</p>' +
+              '</div>' +
+              '<div class="card-footer bg-transparent border-top-0 px-4 pb-3 pt-0">' +
+                '<small class="text-body-secondary">' + formatDate(p.date) + '</small>' +
+              '</div>' +
+            '</article>' +
+          '</div>'
+        );
+      }).join('');
+
+      // Trigger reveal for freshly rendered cards
+      var io = new IntersectionObserver(function (entries) {
+        entries.forEach(function (e) {
+          if (e.isIntersecting) { e.target.classList.add('visible'); io.unobserve(e.target); }
+        });
+      }, { threshold: 0.1 });
+      list.querySelectorAll('.reveal').forEach(function (el) { io.observe(el); });
+    }
+
+    document.addEventListener('DOMContentLoaded', function () {
+      fetch('writing-index.json')
+        .then(function (r) { if (!r.ok) throw new Error(); return r.json(); })
+        .then(renderHomePosts)
+        .catch(function () {
+          // Static fallback — matches hello-world.md
+          renderHomePosts([{
+            slug: 'hello-world',
+            title: 'Hello world. This is where I write about what I actually do.',
+            date: '2026-03-18',
+            tags: ['Meta', 'Copilot Studio'],
+            excerpt: 'First post. What this site is, why I built it, and what I plan to write about.',
+            readtime: 1
+          }]);
+        });
+    });
+  </script>
+</body>
+</html>
