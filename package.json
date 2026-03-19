@@ -6,9 +6,13 @@
     "build":   "node build.js",
     "serve":   "npx serve .",
     "new":     "node scripts/new-post.js",
-    "publish": "node scripts/publish.js"
+    "publish": "node scripts/publish.js",
+    "pdf":     "node scripts/cv-pdf.js"
   },
   "dependencies": {
     "marked": "^12.0.0"
+  },
+  "devDependencies": {
+    "puppeteer": "^22.0.0"
   }
 }

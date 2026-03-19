@@ -56,6 +56,18 @@ Edit the file in `posts/`, then run `npm run publish`.
 | `npm run serve` | Local preview at http://localhost:3000 |
 | `npm run build` | Builds the site without publishing |
 | `npm run publish` | Builds, commits, and pushes to GitHub |
+| `npm run pdf` | Generates `cv/stuart-tufft-cv.pdf` as a single-page PDF |
+
+---
+
+## Exporting the CV to PDF
+
+    npm run pdf
+
+Generates `cv/stuart-tufft-cv.pdf` — a single-page PDF sized exactly to the CV content.
+Run this before attaching to job applications.
+
+The file is not committed to git — regenerate it any time you need a fresh copy.
 
 ---
 
