@@ -1,0 +1,919 @@
+<!--
+---
+title: What is WorkIQ?
+date: 2026-03-19
+tags: [WorkIQ, Microsoft 365, Copilot Studio, Governance]
+excerpt: Microsoft repackaged something you already had and called it WorkIQ. Here is what it actually is, how the governance chain works, and what to check before deploying it.
+readtime: 8
+---
+-->
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>What is WorkIQ? — Stuart Tufft</title>
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="What is WorkIQ? — Stuart Tufft" />
+  <meta property="og:description" content="Microsoft repackaged something you already had and called it WorkIQ. Here is what it actually is, how the governance chain works, and what to check before deploying it." />
+  <meta property="og:type" content="article" />
+  <meta property="og:url" content="https://stuarttufft.com/writing/workiq-explained.html" />
+  <meta property="og:image" content="https://stuarttufft.com/assets/img/posts/what-is-work-iq/workiq.jpg" />
+  <meta name="twitter:card" content="summary_large_image" />
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&family=Inter:wght@300;400;500&display=swap" rel="stylesheet" />
+
+  <!-- Bootstrap 5.3.8 CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous" />
+
+  <!-- Bootstrap Icons 1.11.3 -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
+
+  <!-- Site styles -->
+  <link rel="stylesheet" href="../assets/css/style.css" />
+
+  <style>
+    /* ── Post-specific components ─────────────────────── */
+    /* All use --st-* tokens from the site design system  */
+
+    .post-wide {
+      max-width: 860px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    /* ── Post image ───────────────────────────────────── */
+    .post-figure {
+      margin: 2rem 0;
+    }
+
+    .post-img {
+      width: 100%;
+      border-radius: 12px;
+      box-shadow: 0 4px 24px rgba(26,26,20,0.12);
+      display: block;
+    }
+
+    figcaption {
+      font-size: 0.78rem;
+      color: var(--st-text-light);
+      margin-top: 0.6rem;
+      text-align: center;
+    }
+
+    /* ── Placeholder figure ───────────────────────────── */
+    .post-figure-placeholder .placeholder-img {
+      border: 2px dashed var(--st-border);
+      border-radius: 12px;
+      padding: 2.5rem 1.5rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.5rem;
+      color: var(--st-text-light);
+      background: var(--st-surface-alt);
+    }
+
+    .post-figure-placeholder .bi { font-size: 1.8rem; }
+    .post-figure-placeholder span { font-size: 0.9rem; font-weight: 500; }
+    .post-figure-placeholder small { font-size: 0.75rem; }
+
+    /* ── Honest Box ───────────────────────────────────── */
+    .honest-box {
+      border-left: 3px solid var(--st-accent);
+      background: var(--st-surface-alt);
+      border-radius: 0 8px 8px 0;
+      padding: 1rem 1.25rem;
+      margin: 1.75rem 0;
+    }
+
+    .honest-box-label {
+      font-size: 0.67rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--st-accent-dark);
+      margin-bottom: 0.5rem;
+    }
+
+    .honest-box p {
+      font-size: 0.88rem;
+      color: var(--st-text-mid);
+      margin: 0;
+      line-height: 1.7;
+    }
+
+    /* ── Component cards ──────────────────────────────── */
+    .component-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+      margin: 1.75rem 0;
+    }
+
+    @media (max-width: 640px) {
+      .component-grid { grid-template-columns: 1fr; }
+    }
+
+    .comp-card {
+      background: var(--st-surface);
+      border: 1px solid var(--st-border);
+      border-radius: 10px;
+      padding: 1.1rem 1.2rem;
+      border-top: 4px solid var(--st-border);
+    }
+
+    .comp-card.c-existing { border-top-color: var(--st-text-light); }
+    .comp-card.c-new      { border-top-color: var(--st-accent); }
+
+    .comp-card-badge {
+      display: inline-block;
+      font-size: 0.6rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 0.18rem 0.55rem;
+      border-radius: 100px;
+      margin-bottom: 0.6rem;
+    }
+
+    .badge-existing {
+      background: var(--st-surface-alt);
+      color: var(--st-text-light);
+      border: 1px solid var(--st-border);
+    }
+
+    .badge-new {
+      background: var(--st-accent);
+      color: var(--st-text);
+    }
+
+    .comp-card h3 {
+      font-size: 0.93rem;
+      font-weight: 700;
+      margin: 0 0 0.45rem;
+      color: var(--st-text);
+    }
+
+    .comp-card p {
+      font-size: 0.83rem;
+      color: var(--st-text-mid);
+      margin: 0;
+      line-height: 1.65;
+    }
+
+    /* ── Flow diagram ─────────────────────────────────── */
+    .flow-diagram {
+      background: var(--st-surface-alt);
+      border: 1px solid var(--st-border);
+      border-radius: 12px;
+      padding: 1.5rem 1.5rem 0.75rem;
+      margin: 1.75rem 0;
+    }
+
+    .flow-title {
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--st-text-light);
+      margin-bottom: 1.25rem;
+    }
+
+    .flow-step {
+      display: flex;
+      gap: 1rem;
+      margin-bottom: 0;
+    }
+
+    .flow-line {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      flex-shrink: 0;
+      width: 20px;
+    }
+
+    .flow-dot {
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      background: var(--st-accent);
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.62rem;
+      font-weight: 700;
+      color: var(--st-text);
+    }
+
+    .flow-connector {
+      width: 2px;
+      flex: 1;
+      background: var(--st-border);
+      min-height: 28px;
+      margin: 3px 0;
+    }
+
+    .flow-step:last-child .flow-connector { display: none; }
+
+    .flow-step-text {
+      padding-bottom: 1.25rem;
+      flex: 1;
+    }
+
+    .flow-step-text strong {
+      display: block;
+      font-size: 0.88rem;
+      font-weight: 600;
+      color: var(--st-text);
+      margin-bottom: 0.2rem;
+    }
+
+    .flow-step-text span {
+      font-size: 0.81rem;
+      color: var(--st-text-mid);
+      line-height: 1.55;
+    }
+
+    /* ── Governance stack ─────────────────────────────── */
+    .governance-stack {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+      margin: 1.75rem 0;
+    }
+
+    .gov-layer {
+      display: flex;
+      align-items: flex-start;
+      gap: 1rem;
+      padding: 0.9rem 1.1rem;
+      background: var(--st-surface);
+      border: 1px solid var(--st-border);
+      border-radius: 8px;
+      transition: background 0.15s, border-color 0.15s;
+    }
+
+    .gov-layer:hover {
+      background: var(--st-surface-alt);
+      border-color: var(--st-accent);
+    }
+
+    .gov-number {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background: var(--st-text);
+      color: var(--st-accent);
+      font-size: 0.75rem;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .gov-text strong {
+      display: block;
+      font-size: 0.88rem;
+      font-weight: 600;
+      color: var(--st-text);
+      margin-bottom: 0.15rem;
+    }
+
+    .gov-text span {
+      font-size: 0.8rem;
+      color: var(--st-text-mid);
+      line-height: 1.5;
+    }
+
+    /* ── Callout: warning (amber) ─────────────────────── */
+    .callout-warning {
+      border-left: 3px solid #D97706;
+      background: #FFFBEB;
+      border-radius: 0 8px 8px 0;
+      padding: 1rem 1.25rem;
+      margin: 1.75rem 0;
+    }
+
+    [data-bs-theme="dark"] .callout-warning {
+      background: rgba(217,119,6,0.1);
+    }
+
+    .callout-warning-label {
+      font-size: 0.67rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: #B45309;
+      margin-bottom: 0.5rem;
+    }
+
+    .callout-warning p {
+      font-size: 0.88rem;
+      color: var(--st-text-mid);
+      margin: 0;
+      line-height: 1.7;
+    }
+
+    /* ── Consider / questions box ─────────────────────── */
+    .consider-box {
+      border-left: 3px solid #3B82F6;
+      background: #EFF6FF;
+      border-radius: 0 8px 8px 0;
+      padding: 1rem 1.25rem;
+      margin: 1.75rem 0;
+    }
+
+    [data-bs-theme="dark"] .consider-box {
+      background: rgba(59,130,246,0.1);
+    }
+
+    .consider-label {
+      font-size: 0.67rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: #1D4ED8;
+      margin-bottom: 0.65rem;
+    }
+
+    .consider-box ul {
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .consider-box li {
+      font-size: 0.85rem;
+      color: var(--st-text-mid);
+      line-height: 1.6;
+      padding: 0.25rem 0;
+      display: flex;
+      gap: 0.5rem;
+    }
+
+    .consider-box li::before {
+      content: '→';
+      color: #3B82F6;
+      flex-shrink: 0;
+      font-weight: 600;
+    }
+
+    /* ── Analogy box ──────────────────────────────────── */
+    .analogy-box {
+      background: var(--st-text);
+      border-left: 3px solid var(--st-accent);
+      border-radius: 0 10px 10px 0;
+      padding: 1.25rem 1.5rem;
+      margin: 1.75rem 0;
+    }
+
+    .analogy-box p {
+      font-size: 0.93rem;
+      font-style: italic;
+      color: var(--st-bg);
+      margin: 0 0 0.6rem;
+      line-height: 1.75;
+    }
+
+    [data-bs-theme="dark"] .analogy-box p { color: var(--st-text); }
+
+    .analogy-box cite {
+      font-size: 0.72rem;
+      color: var(--st-text-light);
+      font-style: normal;
+      letter-spacing: 0.03em;
+    }
+
+    /* ── Comparison table ─────────────────────────────── */
+    .compare-wrap {
+      border-radius: 12px;
+      overflow: hidden;
+      border: 1px solid var(--st-border);
+      margin: 1.75rem 0;
+    }
+
+    .compare-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.83rem;
+    }
+
+    .compare-table thead tr {
+      background: var(--st-text);
+      color: var(--st-bg);
+    }
+
+    .compare-table thead th {
+      padding: 0.75rem 1rem;
+      font-weight: 600;
+      font-size: 0.78rem;
+      letter-spacing: 0.03em;
+    }
+
+    .compare-table tbody tr {
+      border-bottom: 1px solid var(--st-border);
+      transition: background 0.1s;
+    }
+
+    .compare-table tbody tr:last-child { border-bottom: none; }
+
+    .compare-table tbody tr:hover { background: var(--st-surface-alt); }
+
+    .compare-table td {
+      padding: 0.65rem 1rem;
+      color: var(--st-text-mid);
+      vertical-align: middle;
+    }
+
+    .compare-table td:first-child {
+      color: var(--st-text);
+      font-weight: 500;
+    }
+
+    .compare-table .yes    { color: #059669; font-weight: 600; }
+    .compare-table .no     { color: #DC2626; font-weight: 600; }
+    .compare-table .partial { color: #D97706; font-weight: 600; }
+
+    /* ── Closing statement ────────────────────────────── */
+    .post-close {
+      border-top: 2px solid var(--st-accent);
+      padding-top: 1.5rem;
+      margin-top: 2.5rem;
+    }
+
+    .post-close p {
+      font-size: 1rem;
+      font-weight: 300;
+      line-height: 1.8;
+      color: var(--st-text);
+    }
+
+    .post-close p strong {
+      font-weight: 600;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Nav -->
+  <nav class="navbar navbar-expand-lg sticky-top" id="mainNav">
+    <div class="container">
+      <a class="navbar-brand d-flex align-items-center gap-2" href="../index.html">
+        Stuart Tufft<span class="nav-logo-dot"></span>
+      </a>
+      <button class="navbar-toggler border-0" type="button"
+        data-bs-toggle="collapse" data-bs-target="#navMenu"
+        aria-controls="navMenu" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navMenu">
+        <ul class="navbar-nav ms-auto align-items-lg-center gap-lg-1">
+          <li class="nav-item"><a class="nav-link" href="../index.html">Home</a></li>
+          <li class="nav-item"><a class="nav-link" href="../about.html">About</a></li>
+          <li class="nav-item"><a class="nav-link" href="../writing.html">Writing</a></li>
+          <li class="nav-item"><a class="nav-link" href="../projects.html">Projects</a></li>
+          <li class="nav-item">
+            <a class="nav-link" href="https://www.youtube.com/@StuartTufft"
+              target="_blank" rel="noopener">
+              Watch <i class="bi bi-box-arrow-up-right small"></i>
+            </a>
+          </li>
+          <li class="nav-item ms-lg-2">
+            <a class="nav-link btn btn-accent px-3 py-1 rounded-pill"
+              href="../writing.html#newsletter">Follow</a>
+          </li>
+          <li class="nav-item ms-1">
+            <button class="btn btn-sm border rounded" id="themeToggle"
+              aria-label="Toggle dark mode">
+              <i class="bi bi-sun-fill icon-sun d-none"></i>
+              <i class="bi bi-moon-fill icon-moon"></i>
+            </button>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <main class="py-5">
+    <div class="container">
+      <div class="reading-col">
+
+        <!-- Back link -->
+        <a href="../writing.html" class="text-body-secondary text-decoration-none small mb-4 d-inline-block reveal">
+          <i class="bi bi-arrow-left me-1"></i>Back to writing
+        </a>
+
+        <!-- Post header -->
+        <header class="mb-4 reveal d1">
+          <div class="d-flex gap-2 flex-wrap mb-3">
+            <span class="badge rounded-pill bg-secondary">WorkIQ</span>
+            <span class="badge rounded-pill bg-secondary">Microsoft 365</span>
+            <span class="badge rounded-pill bg-secondary">Copilot Studio</span>
+            <span class="badge rounded-pill bg-secondary">Governance</span>
+          </div>
+          <h1 class="h2 fw-semibold lh-sm mb-3">What is WorkIQ?</h1>
+          <p class="text-body-secondary small">
+            19 March 2026 &middot; 8 min read
+          </p>
+        </header>
+
+        <!-- Hook -->
+        <div class="post-body reveal d2">
+          <p>Every client conversation I've had in the last few months has included some version of the same question. Usually someone in IT has read something, or a product team heard it mentioned in a Microsoft briefing, and now the question has landed in the room: <em>what is WorkIQ, and do we need it?</em></p>
+
+          <p>The honest answer is more useful than the marketing answer. Most of what WorkIQ does has existed inside Microsoft 365 for years. What changed is how it is packaged, labelled, and connected. The genuinely new component is small but meaningful. And the part that actually determines whether any of it works for your organisation has nothing to do with Microsoft. It has to do with your data.</p>
+        </div>
+
+        <!-- Hero image -->
+        <figure class="post-figure reveal d2">
+          <img src="../assets/img/posts/what-is-work-iq/workiq.jpg"
+               alt="WorkIQ — Microsoft's intelligence layer for Microsoft 365 Copilot"
+               class="post-img" />
+        </figure>
+
+      </div><!-- /reading-col -->
+
+      <!-- ── Section 1: What is WorkIQ ──────────────── -->
+      <div class="reading-col">
+        <div class="post-body reveal">
+          <h2>What is WorkIQ?</h2>
+
+          <p>Microsoft took Graph API, the semantic index, and Copilot memory, gave them a consistent interface, and called it WorkIQ. It is not a product you purchase separately. It is not a new AI model. It is the layer that sits between your Microsoft 365 data and the AI — deciding what is relevant, what to retrieve, and how to surface it in a useful form.</p>
+
+          <p>Most of it existed already. The genuinely new addition is the skills and tools layer: the piece that lets an agent reason about what to <em>do</em>, not just what to retrieve.</p>
+        </div>
+
+        <div class="honest-box reveal">
+          <div class="honest-box-label">Worth noting</div>
+          <p>Most of what WorkIQ does has existed for years: Graph API, the semantic index, Entra ID permissions. The rebranding is not dishonest — it makes the system more coherent. But walking into a client briefing and calling it new AI capability will get you caught out by anyone who has been paying attention. Understanding what is genuinely new versus what is repackaged helps set the right expectations before anything gets deployed.</p>
+        </div>
+
+        <div class="post-body reveal">
+          <h2>What WorkIQ is made of</h2>
+          <p>WorkIQ is a layered toolset. Each layer contributes something different to how the AI retrieves and uses your organisational data. Three of the four components are existing Microsoft technology. One is new.</p>
+        </div>
+      </div>
+
+      <!-- Component cards (wide) -->
+      <div class="post-wide reveal">
+        <div class="component-grid">
+          <div class="comp-card c-existing">
+            <span class="comp-card-badge badge-existing">Existing</span>
+            <h3>Graph API</h3>
+            <p>The data retrieval layer. Provides access to M365 data including emails, calendar, Teams, SharePoint, OneDrive, and people. This has existed for years. WorkIQ builds on top of it rather than replacing it.</p>
+          </div>
+          <div class="comp-card c-existing">
+            <span class="comp-card-badge badge-existing">Existing</span>
+            <h3>Semantic Index</h3>
+            <p>Rather than keyword matching, this understands meaning behind a query. Hosted inside your tenant. Because it is tenant-native, external AI tools cannot replicate it without direct integration inside your M365 environment.</p>
+          </div>
+          <div class="comp-card c-existing">
+            <span class="comp-card-badge badge-existing">Existing — updated</span>
+            <h3>Memory Layer</h3>
+            <p>Previously, Copilot memory was basic context you configured manually. WorkIQ updates this so context is inferred from behaviour across Teams, Outlook, Word, Excel, and PowerPoint — rather than written explicitly.</p>
+          </div>
+          <div class="comp-card c-new">
+            <span class="comp-card-badge badge-new">New</span>
+            <h3>Skills and Tools</h3>
+            <p>The genuinely new addition. Skills define what to do; tools execute it. An action like "schedule a meeting" reasons about calendar context and preferences before firing. This is where WorkIQ starts to feel meaningfully different from what came before.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── Section 2: The 2% Problem ──────────────── -->
+      <div class="reading-col">
+        <div class="post-body reveal">
+          <h2>The 2% Problem</h2>
+
+          <p>Most organisations get to the point of connecting an AI to their Microsoft 365 data and assume the hard part is done. It is not. The challenge is not connection. The challenge is relevance.</p>
+
+          <p>A large M365 tenant contains an enormous volume of content. AI models have context window limits. Surface too little and the AI gives vague answers. Surface too much and the signal drowns in noise. WorkIQ uses the semantic index, relationship weighting, and the memory layer together as a single filter — deciding which 2% of your data is actually relevant to the question being asked.</p>
+
+          <p>You could build this filtering yourself using Graph API calls and custom preprocessing logic. WorkIQ is Microsoft having built it, hosted it, and maintained it on your behalf, at a per-user licensing cost.</p>
+        </div>
+      </div>
+
+      <!-- Flow diagram (wide) -->
+      <div class="post-wide reveal">
+        <div class="flow-diagram">
+          <div class="flow-title">How a WorkIQ query is processed</div>
+          <div class="flow-steps">
+            <div class="flow-step">
+              <div class="flow-line">
+                <div class="flow-dot">1</div>
+                <div class="flow-connector"></div>
+              </div>
+              <div class="flow-step-text">
+                <strong>A question is asked</strong>
+                <span>WorkIQ is called to retrieve relevant context from M365.</span>
+              </div>
+            </div>
+            <div class="flow-step">
+              <div class="flow-line">
+                <div class="flow-dot">2</div>
+                <div class="flow-connector"></div>
+              </div>
+              <div class="flow-step-text">
+                <strong>Graph API retrieves raw data</strong>
+                <span>Emails, documents, calendar items, and people data are pulled from your tenant.</span>
+              </div>
+            </div>
+            <div class="flow-step">
+              <div class="flow-line">
+                <div class="flow-dot">3</div>
+                <div class="flow-connector"></div>
+              </div>
+              <div class="flow-step-text">
+                <strong>WorkIQ filters and enriches</strong>
+                <span>The semantic index scores for relevance. The memory layer adds personal context.</span>
+              </div>
+            </div>
+            <div class="flow-step">
+              <div class="flow-line">
+                <div class="flow-dot">4</div>
+                <div class="flow-connector"></div>
+              </div>
+              <div class="flow-step-text">
+                <strong>The AI receives a distilled package</strong>
+                <span>Not raw data. A governed, relevant subset that fits the model's context window.</span>
+              </div>
+            </div>
+            <div class="flow-step">
+              <div class="flow-line">
+                <div class="flow-dot">5</div>
+                <div class="flow-connector"></div>
+              </div>
+              <div class="flow-step-text">
+                <strong>The model responds</strong>
+                <span>Grounded in your organisational data for that query. Context does not persist afterward.</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── Section 3: Governance ───────────────────── -->
+      <div class="reading-col">
+        <div class="post-body reveal">
+          <h2>How governance works — and where it can fail</h2>
+
+          <p>A common concern is whether WorkIQ can surface data it should not. The short answer: only if your permissions already allow it.</p>
+
+          <p>Microsoft Purview does not sit above WorkIQ checking its outputs. It sits beneath the Graph API call, at the data layer. Enforcement happens before WorkIQ ever sees anything.</p>
+        </div>
+      </div>
+
+      <!-- Governance stack (wide) -->
+      <div class="post-wide reveal">
+        <div class="governance-stack">
+          <div class="gov-layer">
+            <div class="gov-number">1</div>
+            <div class="gov-text">
+              <strong>WorkIQ requests data via Graph API</strong>
+              <span>The query is initiated against your M365 tenant.</span>
+            </div>
+          </div>
+          <div class="gov-layer">
+            <div class="gov-number">2</div>
+            <div class="gov-text">
+              <strong>Graph checks user permissions via Entra ID</strong>
+              <span>Only data the requesting user can already access is in scope.</span>
+            </div>
+          </div>
+          <div class="gov-layer">
+            <div class="gov-number">3</div>
+            <div class="gov-text">
+              <strong>Purview checks sensitivity labels and DLP policies</strong>
+              <span>If a policy is triggered, data is blocked or redacted at source.</span>
+            </div>
+          </div>
+          <div class="gov-layer">
+            <div class="gov-number">4</div>
+            <div class="gov-text">
+              <strong>Graph returns only what passes both checks</strong>
+              <span>WorkIQ never sees the blocked content. Neither does the AI model.</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="reading-col">
+        <div class="callout-warning reveal">
+          <div class="callout-warning-label">Where this breaks down</div>
+          <p>If your sensitive content sits in unlabelled SharePoint sites with loose permissions, WorkIQ will surface it. Purview enforces what you have configured. If you have configured nothing, it enforces nothing. A data governance review should happen before Copilot deployment — not after a user reports finding something unexpected in an AI response.</p>
+        </div>
+
+        <div class="consider-box reveal">
+          <div class="consider-label">Questions worth asking before you deploy</div>
+          <ul>
+            <li>Are sensitivity labels applied consistently across SharePoint, Teams, and OneDrive?</li>
+            <li>Are DLP policies scoped to cover AI-related data access, not just email?</li>
+            <li>Do users understand that Copilot can surface any document they have permission to read?</li>
+            <li>Has an access review been completed on key SharePoint sites recently?</li>
+          </ul>
+        </div>
+
+        <!-- TODO: Add a Purview / sensitivity labels screenshot here -->
+        <figure class="post-figure post-figure-placeholder reveal">
+          <div class="placeholder-img">
+            <i class="bi bi-camera"></i>
+            <span>Screenshot: Purview sensitivity labels in action</span>
+            <small>Add image to assets/img/posts/what-is-work-iq/</small>
+          </div>
+          <figcaption>Purview enforces sensitivity labels at the data layer — before WorkIQ sees anything.</figcaption>
+        </figure>
+
+        <!-- ── Section 4: Model flexibility ─────────── -->
+        <div class="post-body reveal">
+          <h2>WorkIQ is not tied to one model</h2>
+
+          <p>WorkIQ is the context and retrieval layer, not the reasoning layer. The AI model sitting on top of it can be changed without touching the underlying architecture.</p>
+
+          <p>I've had clients ask whether they can swap GPT-4o for Claude. The answer is yes — Copilot Cowork already uses it. Both run within Microsoft's Azure infrastructure. Currently supported models include GPT-4o from OpenAI and Claude from Anthropic, and Microsoft has indicated more providers are planned.</p>
+
+          <p>The model is not the bottleneck. The governance layer is. Data is read as context at inference time only — it is not retained between conversations and is not used to train any underlying model.</p>
+        </div>
+
+        <!-- ── Section 5: Comparison ──────────────────── -->
+        <div class="post-body reveal">
+          <h2>WorkIQ vs. connecting an external AI tool to M365</h2>
+
+          <p>A question I hear often is whether an organisation can just connect an external AI tool to Microsoft 365 instead. Technically, yes. Whether you should depends heavily on your governance requirements — particularly in NHS, legal, or financial services environments.</p>
+        </div>
+      </div>
+
+      <!-- Comparison table (wide) -->
+      <div class="post-wide reveal">
+        <div class="compare-wrap">
+          <div class="table-responsive">
+            <table class="compare-table">
+              <thead>
+                <tr>
+                  <th>Capability</th>
+                  <th>WorkIQ (Copilot)</th>
+                  <th>External AI + M365 connector</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Data stays within tenant boundary</td>
+                  <td class="yes">Yes</td>
+                  <td class="no">No — crosses to external infrastructure</td>
+                </tr>
+                <tr>
+                  <td>Purview DLP enforced natively</td>
+                  <td class="yes">Yes</td>
+                  <td class="no">No</td>
+                </tr>
+                <tr>
+                  <td>Sensitivity labels respected</td>
+                  <td class="yes">Yes</td>
+                  <td class="no">No</td>
+                </tr>
+                <tr>
+                  <td>Semantic index access</td>
+                  <td class="yes">Yes</td>
+                  <td class="no">No</td>
+                </tr>
+                <tr>
+                  <td>Native audit trail in Purview</td>
+                  <td class="yes">Yes</td>
+                  <td class="no">No</td>
+                </tr>
+                <tr>
+                  <td>Entra conditional access governance</td>
+                  <td class="yes">Yes</td>
+                  <td class="partial">Partial</td>
+                </tr>
+                <tr>
+                  <td>Model choice</td>
+                  <td class="partial">Limited to Microsoft-approved models</td>
+                  <td class="yes">Open — any compatible model</td>
+                </tr>
+                <tr>
+                  <td>Additional licensing cost</td>
+                  <td class="no">Yes — per-user Copilot licence required</td>
+                  <td class="partial">Varies by provider</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <div class="reading-col">
+        <div class="analogy-box reveal">
+          <p>An external AI tool connected to M365 is a capable visitor with a guest pass. WorkIQ is built into the building's infrastructure. The visitor might get the job done. But they cannot see the floor plans, and security cannot follow them everywhere.</p>
+          <cite>On the governance trade-off between in-tenant and external AI access</cite>
+        </div>
+
+        <!-- Closing -->
+        <div class="post-close reveal">
+          <p>WorkIQ will not make a badly governed Microsoft 365 tenant good for AI. What it will do is make the gap between what you thought you had locked down and what you actually did <strong>more visible, faster.</strong></p>
+          <p>That is either the best argument for deploying it, or the strongest reason to sort your data governance first. Usually both.</p>
+        </div>
+
+        <!-- Newsletter card -->
+        <div class="newsletter-card mt-5 reveal">
+          <p class="section-eyebrow mb-2">Stay in the loop</p>
+          <h2 class="h4 mb-2">Worth your inbox.</h2>
+          <p class="mb-4">
+            Fortnightly field notes on Copilot Studio, agentic AI, and what
+            actually works in the real world. No padding, no product pitches.
+          </p>
+          <form class="d-flex gap-2 flex-wrap" onsubmit="return false;">
+            <!-- TODO: wire to newsletter provider (e.g. Beehiiv or ConvertKit) -->
+            <input type="email" class="form-control w-auto flex-grow-1"
+              placeholder="your@email.com" aria-label="Email address"
+              style="max-width:280px;" />
+            <button type="submit" class="btn btn-accent rounded-pill px-4">
+              Subscribe
+            </button>
+          </form>
+        </div>
+
+        <!-- Source -->
+        <p class="small text-body-secondary mt-4">
+          <i class="bi bi-link-45deg"></i>
+          Source: <a href="https://techcommunity.microsoft.com/category/microsoftcopilot" target="_blank" rel="noopener" class="text-body-secondary">Microsoft Community Hub</a>, March 2026.
+        </p>
+
+      </div><!-- /reading-col -->
+    </div><!-- /container -->
+  </main>
+
+  <!-- Footer -->
+  <footer class="pt-5 pb-4 mt-5 border-top">
+    <div class="container">
+      <div class="row mb-5" id="newsletter">
+        <div class="col-lg-8 mx-auto text-center">
+          <p class="section-eyebrow">Community</p>
+          <h2 class="h4 mb-2">No noise, just signal.</h2>
+          <p class="text-body-secondary mb-4">
+            Fortnightly thoughts on Copilot Studio, agentic AI, and real-world
+            delivery — from someone in the field, not the sidelines.
+          </p>
+          <form class="d-flex gap-2 justify-content-center flex-wrap" onsubmit="return false;">
+            <!-- TODO: wire to newsletter provider (e.g. Beehiiv or ConvertKit) -->
+            <input type="email" class="form-control w-auto flex-grow-1"
+              placeholder="your@email.com" aria-label="Email address"
+              style="max-width:280px;" />
+            <button type="submit" class="btn btn-accent rounded-pill px-4">Subscribe</button>
+          </form>
+        </div>
+      </div>
+      <div class="row g-4 mb-4">
+        <div class="col-md-4">
+          <div class="fw-semibold mb-2">Stuart Tufft</div>
+          <p class="small text-body-secondary">AI and Copilot consultant at Bytes Software Services. Writing about what actually works.</p>
+          <div class="d-flex gap-2 mt-3">
+            <a href="https://www.linkedin.com/in/stuarttufft/" target="_blank" rel="noopener" class="btn btn-sm btn-outline-secondary rounded" aria-label="LinkedIn"><i class="bi bi-linkedin"></i></a>
+            <a href="https://www.youtube.com/@StuartTufft" target="_blank" rel="noopener" class="btn btn-sm btn-outline-secondary rounded" aria-label="YouTube"><i class="bi bi-youtube"></i></a>
+            <a href="https://github.com/stuarttufft" target="_blank" rel="noopener" class="btn btn-sm btn-outline-secondary rounded" aria-label="GitHub"><i class="bi bi-github"></i></a>
+          </div>
+        </div>
+        <div class="col-6 col-md-2 offset-md-2">
+          <div class="section-eyebrow mb-3">Content</div>
+          <ul class="list-unstyled small">
+            <li class="mb-2"><a href="../writing.html" class="text-body-secondary text-decoration-none">Writing</a></li>
+            <li class="mb-2"><a href="../projects.html" class="text-body-secondary text-decoration-none">Projects</a></li>
+            <li class="mb-2"><a href="https://www.youtube.com/@StuartTufft" target="_blank" rel="noopener" class="text-body-secondary text-decoration-none">Watch</a></li>
+          </ul>
+        </div>
+        <div class="col-6 col-md-2">
+          <div class="section-eyebrow mb-3">Credentials</div>
+          <ul class="list-unstyled small">
+            <li class="mb-2"><a href="../about.html#certs" class="text-body-secondary text-decoration-none">Certifications</a></li>
+            <li class="mb-2"><a href="https://learn.microsoft.com/en-gb/users/stuarttufft/" target="_blank" rel="noopener" class="text-body-secondary text-decoration-none">Microsoft Learn</a></li>
+          </ul>
+        </div>
+        <div class="col-6 col-md-2">
+          <div class="section-eyebrow mb-3">Connect</div>
+          <ul class="list-unstyled small">
+            <li class="mb-2"><a href="https://www.linkedin.com/in/stuarttufft/" target="_blank" rel="noopener" class="text-body-secondary text-decoration-none">LinkedIn</a></li>
+            <li class="mb-2"><a href="../writing.html#newsletter" class="text-body-secondary text-decoration-none">Newsletter</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="d-flex justify-content-between align-items-center border-top pt-3 flex-wrap gap-2">
+        <small class="text-body-secondary">&copy; 2026 Stuart Tufft<span class="nav-logo-dot mx-2"></span>All rights reserved.</small>
+        <small class="text-body-secondary">stuarttufft.com</small>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Bootstrap JS bundle -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+  <!-- Site JS -->
+  <script src="../assets/js/main.js"></script>
+
+</body>
+</html>
