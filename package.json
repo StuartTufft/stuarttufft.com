@@ -3,8 +3,10 @@
   "version": "1.0.0",
   "description": "Personal website for Stuart Tufft — stuarttufft.com",
   "scripts": {
-    "build": "node build.js",
-    "dev": "npx serve ."
+    "build":   "node build.js",
+    "serve":   "npx serve .",
+    "new":     "node scripts/new-post.js",
+    "publish": "node scripts/publish.js"
   },
   "dependencies": {
     "marked": "^12.0.0"

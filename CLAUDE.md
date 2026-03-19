@@ -29,6 +29,9 @@ stuarttufft.com/
 ├── about.html
 ├── writing.html
 ├── projects.html
+├── cv/                       # CV documents
+│   ├── index.html            # stuarttufft.com/cv/
+│   └── variant-blue.html
 ├── writing/
 │   └── .gitkeep
 ├── posts/
@@ -42,6 +45,9 @@ stuarttufft.com/
 │       └── .gitkeep          # Stuart adds stuart.jpg manually
 ├── templates/
 │   └── post.html             # Post template used by build.js
+├── _source/                  # Working/reference files, not published (.gitignored)
+│   └── workiq-cheatsheet.html
+├── _prompts/                 # Working documents, not site content
 ├── build.js                  # Markdown to HTML build script
 ├── package.json              # npm metadata, marked dependency
 ├── .gitignore
@@ -262,9 +268,15 @@ Do not use href="#" as a placeholder. Use the real URL or omit the link.
 
 ## build.js
 
-Node.js. Single dependency: `marked`. Run with `node build.js`.
+Node.js. Single dependency: `marked`. Run with `node build.js` or `npm run build`.
 
-Frontmatter format:
+`posts/` supports two source formats:
+- `.md` files   — converted via marked + templates/post.html
+- `.html` files — copied as-is, metadata from frontmatter comment block at top
+
+Both types end up in `writing/` and in `writing-index.json`.
+
+Markdown frontmatter format:
 ```
 ---
 title: Post title here
@@ -274,6 +286,26 @@ excerpt: One line summary shown in post cards.
 youtube_id: OPTIONAL_11_CHAR_ID
 ---
 ```
+
+HTML post frontmatter (comment block at the very top of the file, before `<!DOCTYPE html>`):
+```html
+<!--
+---
+title: Post title here
+date: 2026-03-18
+tags: [Tag1, Tag2]
+excerpt: One line summary shown in post cards.
+readtime: 8
+---
+-->
+```
+
+`readtime` is optional in HTML posts — omit to auto-calculate from word count.
+Add it as an override when the auto-calculated value is inflated by nav/script content.
+
+Local preview: run `npm run serve` and open `http://localhost:3000` so fetch() works
+and `writing-index.json` is the source of truth. The `staticPlaceholders` fallback in
+`writing.html` is for `file://` only — update it whenever a new post is added.
 
 Outputs:
 - writing/[slug].html per post

@@ -124,6 +124,35 @@ for (const file of files) {
   });
 }
 
+// Process posts/*.html (rich HTML posts copied as-is)
+const htmlFiles = fs.readdirSync(POSTS_DIR).filter(function (f) {
+  return f.endsWith('.html');
+});
+
+for (const file of htmlFiles) {
+  const raw = fs.readFileSync(path.join(POSTS_DIR, file), 'utf8');
+  // Extract frontmatter from opening <!-- --- ... --- --> comment block
+  const fmMatch = raw.match(/^<!--\s*\r?\n---\r?\n([\s\S]*?)\r?\n---\r?\n\s*-->/);
+  const { meta } = fmMatch ? parseFrontmatter('---\n' + fmMatch[1] + '\n---\n') : { meta: {} };
+  const slug = path.basename(file, '.html');
+  // Read time: strip tags, count words
+  const stripped = raw.replace(/<[^>]+>/g, ' ');
+  const autoReadtime = calculateReadTime(stripped);
+
+  fs.copyFileSync(path.join(POSTS_DIR, file), path.join(OUTPUT_DIR, file));
+  console.log('Copied: writing/' + file);
+
+  index.push({
+    slug,
+    title: meta.title || 'Untitled',
+    date: meta.date || '',
+    tags: meta.tags || [],
+    excerpt: meta.excerpt || '',
+    readtime: Number(meta.readtime) || autoReadtime,
+    youtube_id: meta.youtube_id || null,
+  });
+}
+
 // Sort by date descending
 index.sort(function (a, b) {
   return new Date(b.date) - new Date(a.date);
@@ -134,4 +163,43 @@ fs.writeFileSync(
   JSON.stringify(index, null, 2)
 );
 
-console.log('Done. Built ' + index.length + ' post(s). Index written to writing-index.json');
+// ── Sync staticPlaceholders in writing.html ───────────────────────────
+
+function buildPlaceholderJS(index) {
+  var entries = index.map(function (post) {
+    return [
+      '      {',
+      '        slug: ' + JSON.stringify(post.slug) + ',',
+      '        title: ' + JSON.stringify(post.title) + ',',
+      '        date: ' + JSON.stringify(post.date) + ',',
+      '        tags: ' + JSON.stringify(post.tags) + ',',
+      '        excerpt: ' + JSON.stringify(post.excerpt) + ',',
+      '        readtime: ' + post.readtime + ',',
+      '        youtube_id: ' + (post.youtube_id ? JSON.stringify(post.youtube_id) : 'null'),
+      '      }'
+    ].join('\n');
+  });
+  return '    var staticPlaceholders = [\n' + entries.join(',\n') + '\n    ];';
+}
+
+function syncPlaceholders(index) {
+  var writingHtmlPath = path.join(__dirname, 'writing.html');
+  var html = fs.readFileSync(writingHtmlPath, 'utf8');
+  var START = '// [build:placeholders]';
+  var END   = '// [/build:placeholders]';
+  var startIdx = html.indexOf(START);
+  var endIdx   = html.indexOf(END);
+  if (startIdx === -1 || endIdx === -1) {
+    console.warn('Warning: sentinel comments not found in writing.html — placeholder sync skipped.');
+    return;
+  }
+  var before   = html.slice(0, startIdx + START.length);
+  var after    = html.slice(endIdx);
+  var newBlock = '\n' + buildPlaceholderJS(index) + '\n    ';
+  fs.writeFileSync(writingHtmlPath, before + newBlock + after, 'utf8');
+  console.log('Updated: writing.html (staticPlaceholders synced)');
+}
+
+syncPlaceholders(index);
+
+console.log('Done. Built ' + index.length + ' post(s).');
