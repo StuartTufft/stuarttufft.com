@@ -205,28 +205,136 @@ h1 em, h2 em, h3 em,
 
 /* ── Newsletter Card ────────────────────────────────────────────────── */
 .newsletter-card {
-  background-color: var(--st-text);
-  color: var(--st-bg);
+  background-color: var(--st-accent);
+  color: var(--st-text);
   border-radius: 16px;
   padding: 2.5rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.newsletter-card::before {
+  content: '';
+  position: absolute;
+  top: -60px;
+  right: -60px;
+  width: 200px;
+  height: 200px;
+  background: rgba(255, 255, 255, 0.18);
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+.newsletter-card::after {
+  content: '';
+  position: absolute;
+  bottom: -80px;
+  left: -40px;
+  width: 250px;
+  height: 250px;
+  background: rgba(255, 255, 255, 0.09);
+  border-radius: 50%;
+  pointer-events: none;
 }
 
 .newsletter-card .section-eyebrow {
-  color: var(--st-text-light);
+  color: rgba(26, 26, 23, 0.55);
 }
 
 .newsletter-card p {
-  color: var(--st-text-mid);
+  color: rgba(26, 26, 23, 0.75);
 }
 
-/* Prevent double-invert in dark mode */
-[data-bs-theme="dark"] .newsletter-card {
-  background-color: var(--st-surface-alt);
+/* Dark button inside lime card — reversed from normal */
+.newsletter-card .btn-accent {
+  background-color: var(--st-text);
+  color: var(--st-accent);
+  animation: cta-pulse 2.8s ease-in-out infinite;
+}
+
+.newsletter-card .btn-accent:hover,
+.newsletter-card .btn-accent:focus {
+  background-color: #2e2e28;
+  color: var(--st-accent);
+  transform: translateY(-1px);
+  animation: none;
+}
+
+.newsletter-card .form-control {
+  background-color: rgba(255, 255, 255, 0.88);
+  border: 1.5px solid rgba(26, 26, 23, 0.15);
   color: var(--st-text);
+}
+
+.newsletter-card .form-control:focus {
+  background-color: #fff;
+  border-color: rgba(26, 26, 23, 0.4);
+  box-shadow: none;
+}
+
+.newsletter-card .form-control::placeholder {
+  color: rgba(26, 26, 23, 0.4);
+}
+
+@keyframes cta-pulse {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(26, 26, 23, 0.25); }
+  60%       { box-shadow: 0 0 0 8px rgba(26, 26, 23, 0); }
+}
+
+/* Dark mode */
+[data-bs-theme="dark"] .newsletter-card {
+  background: var(--st-surface);
+  color: var(--st-text);
+  border: 1.5px solid var(--st-accent);
+}
+
+[data-bs-theme="dark"] .newsletter-card::before {
+  background: rgba(168, 230, 61, 0.07);
+}
+
+[data-bs-theme="dark"] .newsletter-card::after {
+  background: rgba(168, 230, 61, 0.04);
+}
+
+[data-bs-theme="dark"] .newsletter-card .section-eyebrow {
+  color: var(--st-accent);
 }
 
 [data-bs-theme="dark"] .newsletter-card p {
   color: var(--st-text-mid);
+}
+
+[data-bs-theme="dark"] .newsletter-card .btn-accent {
+  background-color: var(--st-accent);
+  color: #1A1A17;
+  animation: cta-pulse-dark 2.8s ease-in-out infinite;
+}
+
+[data-bs-theme="dark"] .newsletter-card .btn-accent:hover,
+[data-bs-theme="dark"] .newsletter-card .btn-accent:focus {
+  background-color: var(--st-accent-dark);
+  color: #1A1A17;
+  animation: none;
+}
+
+[data-bs-theme="dark"] .newsletter-card .form-control {
+  background-color: var(--st-surface-alt);
+  border-color: var(--st-border);
+  color: var(--st-text);
+}
+
+[data-bs-theme="dark"] .newsletter-card .form-control:focus {
+  border-color: var(--st-accent);
+  box-shadow: none;
+}
+
+[data-bs-theme="dark"] .newsletter-card .form-control::placeholder {
+  color: var(--st-text-light);
+}
+
+@keyframes cta-pulse-dark {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(168, 230, 61, 0.35); }
+  60%       { box-shadow: 0 0 0 8px rgba(168, 230, 61, 0); }
 }
 
 /* ── Stat Cards ─────────────────────────────────────────────────────── */
@@ -465,3 +573,23 @@ h1 em, h2 em, h3 em,
 [data-bs-theme="light"] .icon-moon { display: inline !important; }
 [data-bs-theme="dark"]  .icon-sun { display: inline !important; }
 [data-bs-theme="dark"]  .icon-moon { display: none !important; }
+
+/* ── Tech badge strip ───────────────────────────────────────────────── */
+.tech-badge {
+  display: inline-flex;
+  align-items: center;
+  font-size: 0.72rem;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  padding: 0.3rem 0.7rem;
+  border-radius: 999px;
+  background-color: var(--st-surface-alt);
+  color: var(--st-text-mid);
+  border: 1px solid var(--st-border);
+}
+
+.tech-badge-cert {
+  background-color: var(--st-accent-tint);
+  color: var(--st-text);
+  border-color: var(--st-accent);
+}
