@@ -12,10 +12,10 @@ readtime: 8
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>What is WorkIQ? — Stuart Tufft</title>
+  <title>What is WorkIQ? | Stuart Tufft</title>
 
   <!-- Open Graph -->
-  <meta property="og:title" content="What is WorkIQ? — Stuart Tufft" />
+  <meta property="og:title" content="What is WorkIQ? | Stuart Tufft" />
   <meta property="og:description" content="Microsoft repackaged something you already had and called it WorkIQ. Here is what it actually is, how the governance chain works, and what to check before deploying it." />
   <meta property="og:type" content="article" />
   <meta property="og:url" content="https://stuarttufft.com/writing/workiq-explained.html" />
@@ -45,6 +45,8 @@ readtime: 8
       margin-left: auto;
       margin-right: auto;
     }
+
+    .reading-col { max-width: 860px; }
 
     /* ── Post image ───────────────────────────────────── */
     .post-figure {
@@ -368,26 +370,28 @@ readtime: 8
 
     /* ── Analogy box ──────────────────────────────────── */
     .analogy-box {
-      background: var(--st-text);
+      background: #1A1A17;
       border-left: 3px solid var(--st-accent);
       border-radius: 0 10px 10px 0;
       padding: 1.25rem 1.5rem;
       margin: 1.75rem 0;
     }
 
+    [data-bs-theme="dark"] .analogy-box {
+      background: #28271F;
+    }
+
     .analogy-box p {
       font-size: 0.93rem;
       font-style: italic;
-      color: var(--st-bg);
+      color: #F0EDE6;
       margin: 0 0 0.6rem;
       line-height: 1.75;
     }
 
-    [data-bs-theme="dark"] .analogy-box p { color: var(--st-text); }
-
     .analogy-box cite {
       font-size: 0.72rem;
-      color: var(--st-text-light);
+      color: #AEADA4;
       font-style: normal;
       letter-spacing: 0.03em;
     }
@@ -535,7 +539,7 @@ readtime: 8
         <!-- Hero image -->
         <figure class="post-figure reveal d2">
           <img src="../assets/img/posts/what-is-work-iq/workiq.jpg"
-               alt="WorkIQ — Microsoft's intelligence layer for Microsoft 365 Copilot"
+               alt="WorkIQ: Microsoft's intelligence layer for Microsoft 365 Copilot"
                class="post-img" />
         </figure>
 
@@ -546,14 +550,14 @@ readtime: 8
         <div class="post-body reveal">
           <h2>What is WorkIQ?</h2>
 
-          <p>Microsoft took Graph API, the semantic index, and Copilot memory, gave them a consistent interface, and called it WorkIQ. It is not a product you purchase separately. It is not a new AI model. It is the layer that sits between your Microsoft 365 data and the AI — deciding what is relevant, what to retrieve, and how to surface it in a useful form.</p>
+          <p>Microsoft took Graph API, the semantic index, and Copilot memory, gave them a consistent interface, and called it WorkIQ. It is not a product you purchase separately. It is not a new AI model. It is the layer that sits between your Microsoft 365 data and the AI, deciding what is relevant, what to retrieve, and how to surface it in a useful form.</p>
 
           <p>Most of it existed already. The genuinely new addition is the skills and tools layer: the piece that lets an agent reason about what to <em>do</em>, not just what to retrieve.</p>
         </div>
 
         <div class="honest-box reveal">
           <div class="honest-box-label">Worth noting</div>
-          <p>Most of what WorkIQ does has existed for years: Graph API, the semantic index, Entra ID permissions. The rebranding is not dishonest — it makes the system more coherent. But walking into a client briefing and calling it new AI capability will get you caught out by anyone who has been paying attention. Understanding what is genuinely new versus what is repackaged helps set the right expectations before anything gets deployed.</p>
+          <p>Most of what WorkIQ does has existed for years: Graph API, the semantic index, Entra ID permissions. The rebranding is not dishonest; it makes the system more coherent. But walking into a client briefing and calling it new AI capability will get you caught out by anyone who has been paying attention. Understanding what is genuinely new versus what is repackaged helps set the right expectations before anything gets deployed.</p>
         </div>
 
         <div class="post-body reveal">
@@ -576,9 +580,9 @@ readtime: 8
             <p>Rather than keyword matching, this understands meaning behind a query. Hosted inside your tenant. Because it is tenant-native, external AI tools cannot replicate it without direct integration inside your M365 environment.</p>
           </div>
           <div class="comp-card c-existing">
-            <span class="comp-card-badge badge-existing">Existing — updated</span>
+            <span class="comp-card-badge badge-existing">Existing, updated</span>
             <h3>Memory Layer</h3>
-            <p>Previously, Copilot memory was basic context you configured manually. WorkIQ updates this so context is inferred from behaviour across Teams, Outlook, Word, Excel, and PowerPoint — rather than written explicitly.</p>
+            <p>Previously, Copilot memory was basic context you configured manually. WorkIQ updates this so context is inferred from behaviour across Teams, Outlook, Word, Excel, and PowerPoint, rather than written explicitly.</p>
           </div>
           <div class="comp-card c-new">
             <span class="comp-card-badge badge-new">New</span>
@@ -595,7 +599,7 @@ readtime: 8
 
           <p>Most organisations get to the point of connecting an AI to their Microsoft 365 data and assume the hard part is done. It is not. The challenge is not connection. The challenge is relevance.</p>
 
-          <p>A large M365 tenant contains an enormous volume of content. AI models have context window limits. Surface too little and the AI gives vague answers. Surface too much and the signal drowns in noise. WorkIQ uses the semantic index, relationship weighting, and the memory layer together as a single filter — deciding which 2% of your data is actually relevant to the question being asked.</p>
+          <p>A large M365 tenant contains an enormous volume of content. AI models have context window limits. Surface too little and the AI gives vague answers. Surface too much and the signal drowns in noise. WorkIQ uses the semantic index, relationship weighting, and the memory layer together as a single filter, deciding which 2% of your data is actually relevant to the question being asked.</p>
 
           <p>You could build this filtering yourself using Graph API calls and custom preprocessing logic. WorkIQ is Microsoft having built it, hosted it, and maintained it on your behalf, at a per-user licensing cost.</p>
         </div>
@@ -663,7 +667,7 @@ readtime: 8
       <!-- ── Section 3: Governance ───────────────────── -->
       <div class="reading-col">
         <div class="post-body reveal">
-          <h2>How governance works — and where it can fail</h2>
+          <h2>How governance works, and where it can fail</h2>
 
           <p>A common concern is whether WorkIQ can surface data it should not. The short answer: only if your permissions already allow it.</p>
 
@@ -708,7 +712,7 @@ readtime: 8
       <div class="reading-col">
         <div class="callout-warning reveal">
           <div class="callout-warning-label">Where this breaks down</div>
-          <p>If your sensitive content sits in unlabelled SharePoint sites with loose permissions, WorkIQ will surface it. Purview enforces what you have configured. If you have configured nothing, it enforces nothing. A data governance review should happen before Copilot deployment — not after a user reports finding something unexpected in an AI response.</p>
+          <p>If your sensitive content sits in unlabelled SharePoint sites with loose permissions, WorkIQ will surface it. Purview enforces what you have configured. If you have configured nothing, it enforces nothing. A data governance review should happen before Copilot deployment, not after a user reports finding something unexpected in an AI response.</p>
         </div>
 
         <div class="consider-box reveal">
@@ -721,14 +725,11 @@ readtime: 8
           </ul>
         </div>
 
-        <!-- TODO: Add a Purview / sensitivity labels screenshot here -->
-        <figure class="post-figure post-figure-placeholder reveal">
-          <div class="placeholder-img">
-            <i class="bi bi-camera"></i>
-            <span>Screenshot: Purview sensitivity labels in action</span>
-            <small>Add image to assets/img/posts/what-is-work-iq/</small>
-          </div>
-          <figcaption>Purview enforces sensitivity labels at the data layer — before WorkIQ sees anything.</figcaption>
+        <figure class="post-figure reveal">
+          <img src="../assets/img/posts/what-is-work-iq/sensitivitylabelteamschat.png"
+               alt="Sensitivity label shown in a Teams chat thread"
+               class="post-img" />
+          <figcaption>Purview enforces sensitivity labels at the data layer, before WorkIQ sees anything.</figcaption>
         </figure>
 
         <!-- ── Section 4: Model flexibility ─────────── -->
@@ -737,16 +738,16 @@ readtime: 8
 
           <p>WorkIQ is the context and retrieval layer, not the reasoning layer. The AI model sitting on top of it can be changed without touching the underlying architecture.</p>
 
-          <p>I've had clients ask whether they can swap GPT-4o for Claude. The answer is yes — Copilot Cowork already uses it. Both run within Microsoft's Azure infrastructure. Currently supported models include GPT-4o from OpenAI and Claude from Anthropic, and Microsoft has indicated more providers are planned.</p>
+          <p>I've had clients ask whether they can swap GPT-4o for Claude. The answer is yes: Copilot Cowork already uses it. Both run within Microsoft's Azure infrastructure. Currently supported models include GPT-4o from OpenAI and Claude from Anthropic, and Microsoft has indicated more providers are planned.</p>
 
-          <p>The model is not the bottleneck. The governance layer is. Data is read as context at inference time only — it is not retained between conversations and is not used to train any underlying model.</p>
+          <p>The model is not the bottleneck. The governance layer is. Data is read as context at inference time only; it is not retained between conversations and is not used to train any underlying model.</p>
         </div>
 
         <!-- ── Section 5: Comparison ──────────────────── -->
         <div class="post-body reveal">
           <h2>WorkIQ vs. connecting an external AI tool to M365</h2>
 
-          <p>A question I hear often is whether an organisation can just connect an external AI tool to Microsoft 365 instead. Technically, yes. Whether you should depends heavily on your governance requirements — particularly in NHS, legal, or financial services environments.</p>
+          <p>A question I hear often is whether an organisation can just connect an external AI tool to Microsoft 365 instead. Technically, yes. Whether you should depends heavily on your governance requirements, particularly in NHS, legal, or financial services environments.</p>
         </div>
       </div>
 
@@ -766,7 +767,7 @@ readtime: 8
                 <tr>
                   <td>Data stays within tenant boundary</td>
                   <td class="yes">Yes</td>
-                  <td class="no">No — crosses to external infrastructure</td>
+                  <td class="no">No: crosses to external infrastructure</td>
                 </tr>
                 <tr>
                   <td>Purview DLP enforced natively</td>
@@ -796,11 +797,11 @@ readtime: 8
                 <tr>
                   <td>Model choice</td>
                   <td class="partial">Limited to Microsoft-approved models</td>
-                  <td class="yes">Open — any compatible model</td>
+                  <td class="yes">Open: any compatible model</td>
                 </tr>
                 <tr>
                   <td>Additional licensing cost</td>
-                  <td class="no">Yes — per-user Copilot licence required</td>
+                  <td class="no">Yes: per-user Copilot licence required</td>
                   <td class="partial">Varies by provider</td>
                 </tr>
               </tbody>
@@ -859,7 +860,7 @@ readtime: 8
           <h2 class="h4 mb-2">No noise, just signal.</h2>
           <p class="text-body-secondary mb-4">
             Fortnightly thoughts on Copilot Studio, agentic AI, and real-world
-            delivery — from someone in the field, not the sidelines.
+            delivery, from someone in the field, not the sidelines.
           </p>
           <form class="d-flex gap-2 justify-content-center flex-wrap" onsubmit="return false;">
             <!-- TODO: wire to newsletter provider (e.g. Beehiiv or ConvertKit) -->

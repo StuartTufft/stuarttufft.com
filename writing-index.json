@@ -12,17 +12,5 @@
     "excerpt": "Microsoft repackaged something you already had and called it WorkIQ. Here is what it actually is, how the governance chain works, and what to check before deploying it.",
     "readtime": 8,
     "youtube_id": null
-  },
-  {
-    "slug": "hello-world",
-    "title": "Hello world. This is where I write about what I actually do.",
-    "date": "2026-03-18",
-    "tags": [
-      "Meta",
-      "Copilot Studio"
-    ],
-    "excerpt": "First post. What this site is, why I built it, and what I plan to write about.",
-    "readtime": 1,
-    "youtube_id": null
   }
 ]
