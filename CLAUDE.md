@@ -257,7 +257,7 @@ Colour-code cert cards by category using Bootstrap border utilities:
 
 ## Social and external links
 
-- LinkedIn: https://www.linkedin.com/in/stuarttufft/
+- LinkedIn: https://www.linkedin.com/in/stuart-tufft/
 - YouTube: https://www.youtube.com/@StuartTufft
 - Microsoft Learn: https://learn.microsoft.com/en-gb/users/stuarttufft/
 - GitHub: https://github.com/stuarttufft

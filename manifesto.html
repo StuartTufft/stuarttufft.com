@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Manifesto: Stuart Tufft</title>
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="Manifesto: Stuart Tufft" />
+  <meta property="og:description" content="What Stuart Tufft stands for. Values, priorities, and things worth protecting." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://stuarttufft.com/manifesto.html" />
+  <meta property="og:image" content="https://stuarttufft.com/assets/img/og-default.jpg" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <!-- TODO: replace og-default.jpg with a real 1200x630 OG image -->
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&family=Inter:wght@300;400;500&display=swap" rel="stylesheet" />
+
+  <!-- Bootstrap 5.3.8 CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous" />
+
+  <!-- Bootstrap Icons 1.11.3 -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
+
+  <!-- Site styles -->
+  <link rel="stylesheet" href="assets/css/style.css" />
+
+  <style>
+    /* Manifesto-specific styles */
+    .manifesto-section-label {
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--st-text-light);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 1.5rem;
+    }
+
+    .manifesto-section-label::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: var(--st-border);
+    }
+
+    .value-item {
+      padding: 1.1rem 0 1.1rem 1.2rem;
+      border-left: 2px solid var(--st-border);
+      margin-bottom: 1.25rem;
+      transition: border-color 0.25s ease;
+    }
+
+    .value-item:last-child {
+      margin-bottom: 0;
+    }
+
+    .value-item:hover {
+      border-left-color: var(--st-accent);
+    }
+
+    .value-name {
+      font-family: 'Roboto', sans-serif;
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--st-text);
+      margin-bottom: 0.35rem;
+    }
+
+    .value-text {
+      font-size: 0.88rem;
+      line-height: 1.8;
+      color: var(--st-text-mid);
+      margin-bottom: 0;
+    }
+
+    .list-rule {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .list-rule li {
+      font-size: 0.88rem;
+      line-height: 1.7;
+      color: var(--st-text);
+      padding: 0.6rem 0;
+      border-bottom: 1px solid var(--st-border);
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+    }
+
+    .list-rule li:last-child {
+      border-bottom: none;
+    }
+
+    .list-protect li::before {
+      content: '\2191';
+      color: var(--st-accent-dark);
+      font-size: 0.75rem;
+      margin-top: 3px;
+      flex-shrink: 0;
+    }
+
+    [data-bs-theme="dark"] .list-protect li::before {
+      color: var(--st-accent);
+    }
+
+    .list-watch li::before {
+      content: '\2193';
+      color: var(--st-text-light);
+      font-size: 0.75rem;
+      margin-top: 3px;
+      flex-shrink: 0;
+    }
+
+    .manifesto-closing {
+      background-color: var(--st-text);
+      color: var(--st-bg);
+      border-radius: 12px;
+      padding: 2.5rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    [data-bs-theme="dark"] .manifesto-closing {
+      background-color: var(--st-surface);
+      border: 1px solid var(--st-border);
+      color: var(--st-text);
+    }
+
+    .manifesto-closing::before {
+      content: '\201C';
+      font-family: 'Roboto', serif;
+      font-size: 160px;
+      line-height: 1;
+      color: rgba(255, 255, 255, 0.04);
+      position: absolute;
+      top: -10px;
+      left: 16px;
+      pointer-events: none;
+    }
+
+    [data-bs-theme="dark"] .manifesto-closing::before {
+      color: rgba(168, 230, 61, 0.05);
+    }
+
+    .manifesto-closing-main {
+      font-size: clamp(1rem, 2.5vw, 1.2rem);
+      font-weight: 300;
+      line-height: 1.75;
+      position: relative;
+      z-index: 1;
+      margin-bottom: 1rem;
+      color: inherit;
+    }
+
+    .manifesto-closing-body {
+      font-size: 0.9rem;
+      font-weight: 300;
+      line-height: 1.75;
+      position: relative;
+      z-index: 1;
+      margin-bottom: 1rem;
+      color: rgba(247, 245, 240, 0.75);
+    }
+
+    [data-bs-theme="dark"] .manifesto-closing-body {
+      color: var(--st-text-mid);
+    }
+
+    .manifesto-closing-sign {
+      font-size: 0.78rem;
+      font-weight: 500;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: rgba(247, 245, 240, 0.45);
+      position: relative;
+      z-index: 1;
+    }
+
+    [data-bs-theme="dark"] .manifesto-closing-sign {
+      color: var(--st-text-light);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Nav -->
+  <nav class="navbar navbar-expand-lg sticky-top" id="mainNav">
+    <div class="container">
+      <a class="navbar-brand d-flex align-items-center gap-2" href="index.html">
+        Stuart Tufft<span class="nav-logo-dot"></span>
+      </a>
+      <button class="navbar-toggler border-0" type="button"
+        data-bs-toggle="collapse" data-bs-target="#navMenu"
+        aria-controls="navMenu" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navMenu">
+        <ul class="navbar-nav ms-auto align-items-lg-center gap-lg-1">
+          <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+          <li class="nav-item"><a class="nav-link" href="about.html">About</a></li>
+          <li class="nav-item"><a class="nav-link" href="writing.html">Writing</a></li>
+          <li class="nav-item"><a class="nav-link" href="projects.html">Projects</a></li>
+          <li class="nav-item"><a class="nav-link" href="now.html">Now</a></li>
+          <li class="nav-item">
+            <a class="nav-link" href="https://www.youtube.com/@StuartTufft"
+              target="_blank" rel="noopener">
+              Watch <i class="bi bi-box-arrow-up-right small"></i>
+            </a>
+          </li>
+          <li class="nav-item ms-lg-2">
+            <a class="nav-link btn btn-accent px-3 py-1 rounded-pill"
+              href="writing.html#newsletter">Follow</a>
+          </li>
+          <li class="nav-item ms-1">
+            <button class="btn btn-sm border rounded" id="themeToggle"
+              aria-label="Toggle dark mode">
+              <i class="bi bi-sun-fill icon-sun d-none"></i>
+              <i class="bi bi-moon-fill icon-moon"></i>
+            </button>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <main class="py-5 py-lg-6">
+    <div class="container">
+      <div class="reading-col">
+
+        <!-- Header -->
+        <div class="mb-5 reveal">
+          <p class="section-eyebrow mb-2">Personal Manifesto</p>
+          <h1 class="display-5 fw-light mb-3">
+            Enjoy the life<br />you're <em>building.</em>
+          </h1>
+          <p class="lead fw-light text-body-secondary">
+            You chose this. The work, the people, the path. You didn't stumble into it. You're surrounded by
+            people you love, doing work that matters to you, getting better every day. That's not nothing.
+            That's everything. Now go and live it properly.
+          </p>
+        </div>
+
+        <!-- Values -->
+        <section class="mb-5 reveal d1">
+          <p class="manifesto-section-label">What you stand for</p>
+
+          <div class="value-item">
+            <p class="value-name">Integrity</p>
+            <p class="value-text">Do things for the right reason or don't do them at all. The motive matters as much as the action. When you help someone, teach something, or build something, make sure it's because it's genuinely worth doing. Not for the optics. Not for the money. Because it's right.</p>
+          </div>
+
+          <div class="value-item">
+            <p class="value-name">Competence</p>
+            <p class="value-text">Half-measures are a form of dishonesty. If you're going to do something, understand it properly. Not to impress anyone, but because mastery is how you respect your own time and the people you're serving. You know the difference between knowing something and knowing about something. Always aim for the former.</p>
+          </div>
+
+          <div class="value-item">
+            <p class="value-name">Connection</p>
+            <p class="value-text">The best moments of your life have other people in them. The gym floor with your mates, all in on a hard 15 minutes together. Coming home to Alisha. A client who trusts you. Show up fully for those people. That's what you'll remember. That's what they'll remember too.</p>
+          </div>
+
+          <div class="value-item">
+            <p class="value-name">Authenticity</p>
+            <p class="value-text">You wear your heart on your sleeve and that's a strength, not a liability. The highs are high and the lows are low and you've accepted that. Don't perform. Don't mask. The people worth keeping around will respect you more for being real than for being polished.</p>
+          </div>
+
+          <div class="value-item">
+            <p class="value-name">Freedom</p>
+            <p class="value-text">Your time, your terms, your way. Every good decision you make is quietly buying more of this. The personal brand, the skills, the financial foundation. It all points toward a life lived on your own terms. Keep building it. Don't mistake comfort now for freedom later.</p>
+          </div>
+
+          <div class="value-item">
+            <p class="value-name">Playfulness</p>
+            <p class="value-text">Life should be enjoyed, not just optimised. You lift people up. You make people laugh. You don't take yourself too seriously even when things are serious. That lightness is a gift. Protect it. The world has enough people grinding joylessly toward goals they can't even explain.</p>
+          </div>
+        </section>
+
+        <!-- Protect / Watch -->
+        <section class="mb-5 reveal d2">
+          <div class="row g-4 g-lg-5">
+            <div class="col-md-6">
+              <p class="manifesto-section-label">What to protect</p>
+              <ul class="list-rule list-protect">
+                <li>Training hard, consistently, with people you trust</li>
+                <li>Deep work to produce high-quality and meaningful outputs</li>
+                <li>Leave things better than you found them</li>
+                <li>Share what you know freely</li>
+                <li>Proper presence with Alisha, not half-there</li>
+                <li>Doing the rehab. Your body is the foundation of everything else</li>
+                <li>Finishing what you said you'd finish</li>
+              </ul>
+            </div>
+            <div class="col-md-6">
+              <p class="manifesto-section-label">What to watch for</p>
+              <ul class="list-rule list-watch">
+                <li>The phone. It is a thief. It will take the hour and leave nothing behind</li>
+                <li>Planning the work instead of doing it</li>
+                <li>Doing things for the wrong reason and calling it ambition</li>
+                <li>Taking the easy route when you know the right one</li>
+                <li>Holding yourself to a standard no human could meet</li>
+                <li>Forgetting to enjoy what you already have</li>
+              </ul>
+            </div>
+          </div>
+        </section>
+
+        <!-- Closing -->
+        <div class="manifesto-closing mb-4 reveal d3">
+          <p class="manifesto-closing-main">
+            Learn from the past, don't live in it. Plan for the future, don't escape into it.
+            This moment is where your life actually happens. What you do right now is quietly
+            building the life you'll wake up to in five years.
+          </p>
+          <p class="manifesto-closing-body">
+            You are human. Mistakes made from a place of good intention are not failures, they
+            are the cost of being fully alive. Be kind to yourself with the same generosity
+            you'd give anyone you love.
+          </p>
+          <p class="manifesto-closing-sign">You chose this. That's enough. Now go.</p>
+        </div>
+
+        <!-- Footer row -->
+        <div class="d-flex justify-content-between align-items-center pt-2 reveal d3">
+          <span class="section-eyebrow">Stuart Tufft</span>
+          <span class="text-body-secondary small">2026</span>
+        </div>
+
+      </div>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="pt-5 pb-4 mt-0 border-top">
+    <div class="container">
+      <div class="row g-4 mb-4">
+        <div class="col-md-4">
+          <div class="fw-semibold mb-2">Stuart Tufft</div>
+          <p class="small text-body-secondary">
+            AI and Copilot consultant at Bytes Software Services.
+            Writing about what actually works.
+          </p>
+          <div class="d-flex gap-2 mt-3">
+            <a href="https://www.linkedin.com/in/stuart-tufft/"
+              target="_blank" rel="noopener"
+              class="btn btn-sm btn-outline-secondary rounded"
+              aria-label="LinkedIn">
+              <i class="bi bi-linkedin"></i>
+            </a>
+            <a href="https://www.youtube.com/@StuartTufft"
+              target="_blank" rel="noopener"
+              class="btn btn-sm btn-outline-secondary rounded"
+              aria-label="YouTube">
+              <i class="bi bi-youtube"></i>
+            </a>
+          </div>
+        </div>
+        <div class="col-6 col-md-2 offset-md-2">
+          <div class="section-eyebrow mb-3">Content</div>
+          <ul class="list-unstyled small">
+            <li class="mb-2"><a href="writing.html" class="text-body-secondary text-decoration-none">Writing</a></li>
+            <li class="mb-2"><a href="projects.html" class="text-body-secondary text-decoration-none">Projects</a></li>
+            <li class="mb-2"><a href="now.html" class="text-body-secondary text-decoration-none">Now</a></li>
+            <li class="mb-2">
+              <a href="https://www.youtube.com/@StuartTufft"
+                target="_blank" rel="noopener"
+                class="text-body-secondary text-decoration-none">Watch</a>
+            </li>
+          </ul>
+        </div>
+        <div class="col-6 col-md-2">
+          <div class="section-eyebrow mb-3">Credentials</div>
+          <ul class="list-unstyled small">
+            <li class="mb-2"><a href="about.html#certs" class="text-body-secondary text-decoration-none">Certifications</a></li>
+            <li class="mb-2">
+              <a href="https://learn.microsoft.com/en-gb/users/stuarttufft/"
+                target="_blank" rel="noopener"
+                class="text-body-secondary text-decoration-none">Microsoft Learn</a>
+            </li>
+          </ul>
+        </div>
+        <div class="col-6 col-md-2">
+          <div class="section-eyebrow mb-3">Connect</div>
+          <ul class="list-unstyled small">
+            <li class="mb-2">
+              <a href="https://www.linkedin.com/in/stuart-tufft/"
+                target="_blank" rel="noopener"
+                class="text-body-secondary text-decoration-none">LinkedIn</a>
+            </li>
+            <li class="mb-2">
+              <a href="writing.html#newsletter"
+                class="text-body-secondary text-decoration-none">Newsletter</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="d-flex justify-content-between align-items-center
+        border-top pt-3 flex-wrap gap-2">
+        <small class="text-body-secondary">
+          &copy; 2026 Stuart Tufft<span class="nav-logo-dot mx-2"></span>All rights reserved.
+        </small>
+        <small class="text-body-secondary">stuarttufft.com</small>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Bootstrap JS bundle -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+  <!-- Site JS -->
+  <script src="assets/js/main.js"></script>
+
+</body>
+</html>

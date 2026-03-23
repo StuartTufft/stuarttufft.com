@@ -574,6 +574,12 @@ h1 em, h2 em, h3 em,
 [data-bs-theme="dark"]  .icon-sun { display: inline !important; }
 [data-bs-theme="dark"]  .icon-moon { display: none !important; }
 
+/* ── beehiiv embed iframe ───────────────────────────────────────────── */
+.beehiiv-embed {
+  display: block;
+  min-height: 80px;
+}
+
 /* ── Tech badge strip ───────────────────────────────────────────────── */
 .tech-badge {
   display: inline-flex;
