@@ -402,6 +402,11 @@ h1 em, h2 em, h3 em,
   transform: translateY(-3px);
 }
 
+/* ── Home: hero section height (desktop only, avoids nav overflow on mobile) */
+@media (min-width: 992px) {
+  #hero { min-height: 100vh; }
+}
+
 /* ── Home: hero photo ───────────────────────────────────────────────── */
 .hero-img-wrap {
   position: relative;
