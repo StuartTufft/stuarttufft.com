@@ -488,7 +488,6 @@ readtime: 8
           <li class="nav-item"><a class="nav-link" href="../about.html">About</a></li>
           <li class="nav-item"><a class="nav-link" href="../writing.html">Writing</a></li>
           <li class="nav-item"><a class="nav-link" href="../projects.html">Projects</a></li>
-          <li class="nav-item"><a class="nav-link" href="../now.html">Now</a></li>
           <li class="nav-item">
             <a class="nav-link" href="https://www.youtube.com/@StuartTufft"
               target="_blank" rel="noopener">
@@ -662,7 +661,7 @@ readtime: 8
               </div>
               <div class="flow-step-text">
                 <strong>The model responds</strong>
-                <span>Grounded in your organisational data for that query. Context does not persist afterward.</span>
+                <span>Grounded in your organisational data for that query. Your underlying M365 data is not copied or moved by WorkIQ.</span>
               </div>
             </div>
           </div>
@@ -819,6 +818,43 @@ readtime: 8
         <div class="analogy-box reveal">
           <p>An external AI tool connected to M365 is a capable visitor with a guest pass. WorkIQ is built into the building's infrastructure. The visitor might get the job done. But they cannot see the floor plans, and security cannot follow them everywhere.</p>
           <cite>On the governance trade-off between in-tenant and external AI access</cite>
+        </div>
+
+        <!-- ── Section 6: WorkIQ MCP in agents ──────────── -->
+        <div class="post-body reveal">
+          <h2>Using WorkIQ inside your own Copilot Studio agents</h2>
+
+          <p>WorkIQ is not limited to the built-in M365 Copilot Chat experience. Via the WorkIQ MCP (Model Context Protocol) server, you can give your own custom Copilot Studio agents the same real-time organisational grounding.</p>
+
+          <p>This is currently in preview and not yet generally available. It is worth understanding now, because it significantly changes what a custom agent can do.</p>
+
+          <p>Without WorkIQ MCP, a custom agent only has access to the knowledge sources and connectors you explicitly wire up. With WorkIQ MCP, the agent gains on-demand access to the requesting user's email, calendar, Teams chats, files, SharePoint, and people data, all governed by the same Entra permissions and Purview policies that govern standard Copilot access.</p>
+        </div>
+
+        <div class="consider-box reveal">
+          <div class="consider-label">What the WorkIQ MCP toolset currently covers (preview)</div>
+          <ul>
+            <li><strong>Mail:</strong> read, draft, and send emails in the user's mailbox</li>
+            <li><strong>Calendar:</strong> create, update, and delete events; check availability</li>
+            <li><strong>Teams:</strong> create chats, post messages, manage channel operations</li>
+            <li><strong>SharePoint:</strong> upload and search files; retrieve metadata; manage lists</li>
+            <li><strong>OneDrive:</strong> manage files and folders in the user's personal drive</li>
+            <li><strong>User:</strong> look up manager, direct reports, and colleague profiles</li>
+            <li><strong>Word:</strong> create and read documents; add and reply to comments</li>
+          </ul>
+        </div>
+
+        <div class="post-body reveal">
+          <p>Adding a WorkIQ MCP server to an agent is done through the Tools tab in Copilot Studio. You select Model Context Protocol, search for the server you want, create a connection, and the orchestrator decides at runtime whether to call it. Users are prompted to grant permission on first use.</p>
+
+          <p>The governance rules do not change. The agent can only surface data the authenticated user could already access. Sensitivity labels and DLP policies are still enforced at the Graph API layer before WorkIQ sees anything.</p>
+
+          <p>Prerequisites are the same as for standard Copilot access: a Microsoft 365 Copilot licence per user and admin consent through the M365 admin center. Your organisation's admin controls which WorkIQ MCP servers are permitted across the tenant.</p>
+        </div>
+
+        <div class="callout-warning reveal">
+          <div class="callout-warning-label">Preview caveat</div>
+          <p>WorkIQ MCP for Copilot Studio agents is in public preview as of early 2026. Features, tool names, and prerequisites may change before general availability. Do not build production-critical workflows on it yet.</p>
         </div>
 
         <!-- Closing -->
