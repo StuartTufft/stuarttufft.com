@@ -159,6 +159,8 @@ h1 em, h2 em, h3 em,
 .cert-azure       { border-top: 3px solid #00BCD4; }
 .cert-power       { border-top: 3px solid #5C6BC0; }
 .cert-ai          { border-top: 3px solid #26A69A; }
+.cert-agentic     { border-top: 3px solid #F57C00; }
+.cert-github      { border-top: 3px solid #24292F; }
 
 /* ── Post Cards ─────────────────────────────────────────────────────── */
 .post-card {
